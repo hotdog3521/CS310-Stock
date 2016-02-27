@@ -1,4 +1,7 @@
 <?php
+include "APIManager.php";
+include "ProjectManager.php";
+
 class SearchBar
 {
     // property declaration

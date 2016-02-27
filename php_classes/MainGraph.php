@@ -1,4 +1,7 @@
 <?php
+include 'APIManager.php'
+include 'Stock.php'
+
 class MainGraph
 {
     // property declaration
