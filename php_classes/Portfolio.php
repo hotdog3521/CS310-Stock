@@ -1,5 +1,5 @@
 <?php
-class PortfolioManager
+class Portfolio
 {
     // property declaration
     private $accountBalance;        //Double
@@ -13,10 +13,10 @@ class PortfolioManager
 
     public function __construct($watchList, $accountBalance, $netPortfolioValue, $mStockList) {
         //constructor
-        this->accountBalance = $accountBalance;
-        this->watchList = $watchList;
-        this->netPortfolioValue = $netPortfolioValue;
-        this->mStockList = $mStockList;
+        $this->accountBalance = $accountBalance;
+        $this->watchList = $watchList;
+        $this->netPortfolioValue = $netPortfolioValue;
+        $this->mStockList = $mStockList;
 
     }
 
@@ -50,10 +50,10 @@ class PortfolioManager
         //return watchlist
         //returns the watchlist
     }
-    public function  addToWatchList($Stock) {
+    public function addToWatchList($Stock) {
         //Usage: adds a stock to the watchList
     }
-    public function function  removeFromWatchList($Stock) {
+    public function removeFromWatchList($Stock) {
         //removes a stock from the watchlist
     }
     public function uploadCSV($filePath) {

@@ -16,13 +16,13 @@ class PortfolioManager
 
     );
 
-    public function __construct($mDB, $mAPI, $mUser, $mPortfolio, $mVisibleStocks) {
+    public function __construct($mUser, $mPortfolio, $mVisibleStocks) {
         //constructor
-        this->mDB = $mDB;
-        this->mAPI = $mAPI;
-        this->mUser = $mUser;
-        this->mPortfolio = $mPortfolio;
-        this->mVisibleStocks = $mVisibleStocks;
+        $this->mDB = new DBManager();
+        $this->mAPI = new APIManager();
+        $this->mUser = $mUser;
+        $this->mPortfolio = $mPortfolio;
+        $this->mVisibleStocks = $mVisibleStocks;
     }
 
     // method declaration
@@ -33,8 +33,10 @@ class PortfolioManager
     public function getVisibleStocks($stockPrefix) {
         //return array of stock mVisibleStocks
         //returns the list of visible stocks for the mainGraph class to use
+
+        return $this->mVisibleStocks;
     }
-    public function setBalacne($balance) {
+    public function setBalance($balance) {
         //return boolean
         //calls the portfolio’s setBalance funciton.
     }
