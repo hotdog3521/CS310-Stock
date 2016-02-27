@@ -36,8 +36,12 @@ class PortfolioManager
     }
     public function loadPortfolio(){
 
-        // should take the username and access the corresponding information to create a NEW portfolio
+        // should take the username and access the corresponding information from MySQL to create a NEW portfolio
     }
+    public function savePortfolio(){
+        // should take the current Portfolio stored in $mPortfolio, and update the MySQL tables according to its info
+    }
+
     public function getVisibleStocks($stockPrefix) {
         //return array of stock mVisibleStocks
         //returns the list of visible stocks for the mainGraph class to use
@@ -94,6 +98,8 @@ class PortfolioManager
     public function uploadCSV($filePath) {
         
         // replace the current Portfolio with the new one uploaded
+
+        $this->savePortfolio();
     }
 
 
