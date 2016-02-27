@@ -1,4 +1,7 @@
 <?php
+include 'APIManager.php'
+include 'PortfolioManager.php'
+
 class Trader
 {
     // property declaration
@@ -21,6 +24,7 @@ class Trader
     }
     public function buyStock($stock, $quantity) {
         //accesses the API and purchases the stocks And update user’s portfolio.
+
     }
     public function sellStock($stock, $quantity) {
         //accesses the API and sells the stocks. And update user’s portfolio

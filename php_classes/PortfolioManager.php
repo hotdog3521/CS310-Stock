@@ -8,16 +8,18 @@ include 'Stock.php';
 class PortfolioManager
 {
     // property declaration
+    private $username;
     private $mDB; //DBManager
-    private $mAPI; //APIManager
-    private $mUser; //User
+    private $mAPI; //APIManagers
     private $mPortfolio; //Portfolio
     private $mVisibleStocks = array(
 
     );
 
-    public function __construct($mUser, $mPortfolio, $mVisibleStocks) {
+    public function __construct($username) {
         //constructor
+        $this->username = $username;
+
         $this->mDB = new DBManager();
         $this->mAPI = new APIManager();
         $this->mUser = $mUser;
@@ -29,6 +31,10 @@ class PortfolioManager
     public function logout() {
         //returns true or false depending on the status of the logout process
         //boolean function
+    }
+    public function loadPortfolio(){
+
+        // should take the username and access the corresponding information to create a NEW portfolio
     }
     public function getVisibleStocks($stockPrefix) {
         //return array of stock mVisibleStocks

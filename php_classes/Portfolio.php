@@ -1,4 +1,6 @@
 <?php
+include 'Stock.php';
+
 class Portfolio
 {
     // property declaration

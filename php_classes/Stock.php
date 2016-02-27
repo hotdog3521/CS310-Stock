@@ -6,10 +6,11 @@ class Stock
     private $symbol;     //string
     private $closingPrice; //Double
 
-    public function __construct($name, $symbol, $currprice, $currtime) {
+    public function __construct($name, $symbol, $closingPrice) {
         //constructor
         $this->name = $name;
         $this->symbol = $symbol;
+        $this->closingPrice = $closingPrice;
 
     }
 
