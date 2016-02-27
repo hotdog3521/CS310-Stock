@@ -2,11 +2,29 @@
 class DBManager
 {
     // property declaration
+    private $host, $dbname, $user, $pw, $pdo;
 
-    // method declaration
-    public function __construct() {
+    public function __construct()
+    {
+        $this->host = '127.0.0.1';
+        $this->dbname = 'cs310';
+        $this->user = 'root';
+        $this->pw = 'van78756';
 
+        $this->pdo = new PDO("mysql:host=$this->host;dbname=$this->dbname", $this->user, $this->pw);
     }
+    
+    public function getUsers()
+    {
+        $sql = "SELECT * FROM users";
+
+        $statement = $this->pdo->prepare($sql);
+        $statement->execute();
+        $users = $statement->fetchAll(PDO::FETCH_OBJ);
+
+        return $users;
+    }
+    
     public function addStock($stockTicker) {
     	//adds a stock to the database so that it will be in the user’s portfolio during future sessions
     }
