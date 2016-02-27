@@ -4,8 +4,8 @@ class DBManager
     // property declaration
 
     // method declaration
-    public function DBManager() {
-        echo $this->var;
+    public function __construct() {
+
     }
     public function addStock($stockTicker) {
     	//adds a stock to the database so that it will be in the user’s portfolio during future sessions

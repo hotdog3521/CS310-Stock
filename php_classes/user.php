@@ -1,10 +1,12 @@
 <?php
 class User{
 
+	// property declaration
 	private $username;
 	private $password;
 	private $portfolio;
 
+	// method declaration
 	public function __construct($userName, $passWord){
 		$this->username = $userName;
 		$this->password = $passWord;
