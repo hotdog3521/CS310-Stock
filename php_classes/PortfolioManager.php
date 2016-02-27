@@ -6,21 +6,62 @@ class PortfolioManager
     private $mAPI; //APIManager
     private $mUser; //User
     private $mPortfolio; //Portfolio
-    //private $mVisibleStocks; //array(stock)
+    private $mVisibleStocks = array(
 
+    );
 
-    public function PortfolioManager() {
+    public function __construct($mDB, $mAPI, $mUser, $mPortfolio, $mVisibleStocks) {
         //constructor
+        this->mDB = $mDB;
+        this->mAPI = $mAPI;
+        this->mUser = $mUser;
+        this->mPortfolio = $mPortfolio;
+        this->mVisibleStocks = $mVisibleStocks;
     }
-
 
     // method declaration
-    public function getStockInfo($companyName) {
-    	//Given a company name in String form, this function queries the finance API and returns the stock’s information
+    public function logout() {
+        //returns true or false depending on the status of the logout process
+        //boolean function
     }
-    public function getStocksStartingWith($stockPrefix) {
-    	//Given a String input, this function returns an array of stocks with matching characters as the inputted string. 
+    public function getVisibleStocks($stockPrefix) {
+        //return array of stock mVisibleStocks
+        //returns the list of visible stocks for the mainGraph class to use
     }
+    public function setBalacne($balance) {
+        //return boolean
+        //calls the portfolio’s setBalance funciton.
+    }
+    public function getBalance() {
+        //return double
+        //returns portfolio’s net balance
+    }
+    public function getNetPortfolioValue(){
+        //returns portfolio’s net value
+    }
+    public function getStockList($user) {
+        // return Portfolio
+        //calls the getStockList function inside the $mPortfolio;
+    }
+    public function addStock($stock) {
+        //calls the addStock method in $mPortfolio
+    }
+    public function removeStock($stock) {
+        //calls the removeStock method $mPortfolio
+    }
+    public function getWatchList($user) {
+        //calls the getWatchList function in $mPortfolio 
+    }
+    public function addToWatchList($stock) {
+        //calls the addToWatchList function in $mPortfolio
+    }
+    public function removeFromWatchList($stock) {
+        //calls the removeFromWatchList function in $mPortfolio
+    }
+    public function uploadCSV($filePath) {
+        //calls the uploadCSV function in $mPortfolio
+    }
+
 
 }
 ?>

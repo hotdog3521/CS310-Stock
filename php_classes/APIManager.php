@@ -4,7 +4,7 @@ class APIManager
     // property declaration
 
     // method declaration
-    public function APIManager() {
+    public function __construct() {
         
     }
     public function getStockInfo($companyName) {
