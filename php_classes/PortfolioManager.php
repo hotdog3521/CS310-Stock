@@ -1,4 +1,10 @@
 <?php
+include 'APIManager.php';
+include 'Portfolio.php';
+include 'DBManager.php';
+include 'Portfolio.php';
+include 'Stock.php';
+
 class PortfolioManager
 {
     // property declaration
