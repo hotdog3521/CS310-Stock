@@ -25,6 +25,8 @@ class PortfolioManager
         $this->mUser = $mUser;
         $this->mPortfolio = $mPortfolio;
         $this->mVisibleStocks = $mVisibleStocks;
+
+        $this->loadPortfolio();
     }
 
     // method declaration
@@ -90,8 +92,8 @@ class PortfolioManager
         $this->mPortfolio->removeFromWatchList($stock);
     }
     public function uploadCSV($filePath) {
-        //calls the uploadCSV function in $mPortfolio
-        $this->mPortfolio->uploadCSV($filePath);
+        
+        // replace the current Portfolio with the new one uploaded
     }
 
 

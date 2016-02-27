@@ -86,9 +86,6 @@ class Portfolio
             unset($mWatchList[$stock->getName()]);
         }
     }
-    public function uploadCSV($filePath) {
-        //Usage: read csv file and update user’s portfolio and database
-    }
 
 }
 ?>
