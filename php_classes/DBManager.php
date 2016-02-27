@@ -24,7 +24,22 @@ class DBManager
 
         return $users;
     }
-    
+
+    public function loginUser($email, $password)
+    {
+        $sql = "SELECT * FROM users
+                WHERE users.email = ?
+                AND users.password = ?";
+
+        $statement = $this->pdo->prepare($sql);
+        $statement->bindValue(1, $email, PDO::PARAM_STR);
+        $statement->bindValue(2, $password, PDO::PARAM_STR);
+        $statement->execute();
+        $user = $statement->fetchAll(PDO::FETCH_OBJ);
+
+        return $user;
+    }
+
     public function addStock($stockTicker) {
     	//adds a stock to the database so that it will be in the user’s portfolio during future sessions
     }
