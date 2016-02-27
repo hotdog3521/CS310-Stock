@@ -39,35 +39,53 @@ class PortfolioManager
     public function setBalance($balance) {
         //return boolean
         //calls the portfolio’s setBalance funciton.
+
+        $this->mPortfolio->setBalance($balance);
     }
     public function getBalance() {
         //return double
         //returns portfolio’s net balance
+
+        return $this->mPortfolio->getBalance();
     }
     public function getNetPortfolioValue(){
         //returns portfolio’s net value
+
+        return $this->mPortfolio->getNetPortfolioValue();
     }
     public function getStockList($user) {
         // return Portfolio
         //calls the getStockList function inside the $mPortfolio;
+
+        return $this->mPortfolio->getStockList($user);
     }
     public function addStock($stock) {
         //calls the addStock method in $mPortfolio
+
+        $this->mPortfolio->addStock($stock);
     }
     public function removeStock($stock) {
         //calls the removeStock method $mPortfolio
+
+        $this->mPortfolio ->removeStock($stock);
     }
     public function getWatchList($user) {
         //calls the getWatchList function in $mPortfolio 
+
+        return $this->mPortfolio->getWatchList();
     }
     public function addToWatchList($stock) {
         //calls the addToWatchList function in $mPortfolio
+
+        $this->mPortfolio->addToWatchList($stock);
     }
     public function removeFromWatchList($stock) {
         //calls the removeFromWatchList function in $mPortfolio
+        $this->mPortfolio->removeFromWatchList($stock);
     }
     public function uploadCSV($filePath) {
         //calls the uploadCSV function in $mPortfolio
+        $this->mPortfolio->uploadCSV($filePath);
     }
 
 
