@@ -101,7 +101,8 @@ class PortfolioManager
 
 
         );
-
+        $newStockQtyList= array(
+            );
         $newStockList = array(
 
         );
