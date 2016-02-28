@@ -65,7 +65,7 @@ class PortfolioManager
 
         return $this->mPortfolio->getNetPortfolioValue();
     }
-    public function getStockList($user) {
+    public function getStockList() {
         // return Portfolio
         //calls the getStockList function inside the $mPortfolio;
 
@@ -81,7 +81,7 @@ class PortfolioManager
 
         $this->mPortfolio ->removeStock($stock);
     }
-    public function getWatchList($user) {
+    public function getWatchList() {
         //calls the getWatchList function in $mPortfolio 
 
         return $this->mPortfolio->getWatchList();
@@ -96,8 +96,43 @@ class PortfolioManager
         $this->mPortfolio->removeFromWatchList($stock);
     }
     public function uploadCSV($filePath) {
+
+        $newBalance = 0; //double
+        //define array for stock list
+        $csvfile = array(
+
+
+        );
+
+        $newStockList = array(
+
+        );
+
         
         // replace the current Portfolio with the new one uploaded
+        $csv_reader = fopen($filePath, 'r');
+        while(!fof($file_handle) ) {
+            $csvfile[] = fgetcsv($csv_reader);
+        }
+        fclose($myfile);
+        //get the new stocklist from csvfile array
+        for($i = 0; $i < count($csvfile); ++$i) {
+            
+            if($i !== count($csvfile)-1) {
+                $newStockList[$i] = $csvfile[$i];
+            }else {
+                //last element of the csvfile is balance of the user
+                $newBalance = $csvfile[$i];
+            }
+            
+        }
+
+
+
+        $newPortfolio = new Portfolio($this->getWatchList(), $newBalance, $this->getNetPortfolioValue(), $newStockList);
+        $mPortfolio = $newPortfolio
+        
+
 
         $this->savePortfolio();
     }
