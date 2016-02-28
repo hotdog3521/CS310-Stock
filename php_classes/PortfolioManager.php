@@ -99,6 +99,7 @@ class PortfolioManager
         $csv_reader = NULL;     //csv file
         $csvfile = array();
         $newStockList = array();
+        $index = 0;
         //getting csv and put that into array
         if(($csv_reader = fopen($filePath, 'r')) !== FALSE) {
 
@@ -112,12 +113,15 @@ class PortfolioManager
                 fclose($csv_reader);
             }
         }
+
         //create new stock list that has stock object in it.
         foreach (array_expression as $key => $value) {
             
             
             if($i !== count($csvfile)-1) {
-                
+                $stock = new Stock($key, null, null, $value);
+                $newStockList[$index] = $stock;
+                $index++;
             }else {
                 //last element of the csvfile is balance of the user
                 $newBalance = $key
