@@ -2,6 +2,8 @@
 require_once("header.php");
 ?>
 
+
+
 <script type="text/javascript">
 	// var form = $('#portfolio_form');
 
@@ -78,6 +80,43 @@ require_once("header.php");
 		
 	</div>
 </div>
+
+<!-- The below is the code for the hisghstock graph -->
+
+<div class="container">
+<div class="col-md-6 well" id="graph" style="width:100%; height:400px; margin:0px auto; float:none;">
+	
+</div>
+</div>
+<script>
+   $(function () {
+
+    $.getJSON('https://www.highcharts.com/samples/data/jsonp.php?filename=aapl-c.json&callback=?', function (data) {
+        // Create the chart
+        $('#graph').highcharts('StockChart', {
+
+
+            rangeSelector : {
+                selected : 1
+            },
+
+            title : {
+                text : 'AAPL Stock Price'
+            },
+
+            series : [{
+                name : 'AAPL',
+                data : data,
+                tooltip: {
+                    valueDecimals: 2
+                }
+            }]
+        });
+    });
+
+});
+
+</script>
 
 
 </body>
