@@ -96,33 +96,6 @@ class PortfolioManager
     public function uploadCSV($filePath) {
 
         $newBalance = 0; //double
-        //define array for stock 
-/*
-        $csvfile = array();
-        $newStockList = array();
-*/
-/*
-        // replace the current Portfolio with the new one uploaded
-        $csv_reader = fopen($filePath, 'r');
-        while(!fof($file_handle) ) {
-            $csvfile[] = fgetcsv($csv_reader);
-        }
-        fclose($myfile);
-
-
-        //get the new stocklist from csvfile array
-        for($i = 0; $i < count($csvfile); ++$i) {
-            
-            if($i !== count($csvfile)-1) {
-                $newStockList[$i] = $csvfile[$i];
-            }else {
-                //last element of the csvfile is balance of the user
-                $newBalance = $csvfile[$i];
-            }
-            
-        }
-*/
-
         $csv_reader = NULL;     //csv file
         $csvfile = array();
         $newStockList = array();

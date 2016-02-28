@@ -13,10 +13,10 @@
 
 	//check if there is a user with that login info
 	$db = new DBManager();
-	$user = $db->loginUser($_POST['email'], $_POST['password']);
+	$success = $db->loginAuthenticate($_POST['email'], $_POST['password']);
 
 	//the user entered incorrect login info
-	if (empty($user))
+	if (!$success)
 	{
 		$_SESSION['errors'] = "Email or Password was incorrect.  Please try again.";
 		header('Location: login.php');
