@@ -1,5 +1,6 @@
 <?php
 require_once("header.php");
+
 ?>
 
 
@@ -83,17 +84,19 @@ require_once("header.php");
 
 <!-- The below is the code for the hisghstock graph -->
 
-<div class="container">
-<div class="col-md-6 well" id="graph" style="width:100%; height:400px; margin:0px auto; float:none;">
+
 	
-</div>
-</div>
-<script>
-   $(function () {
+
+	<div  id="container" style="width:100%; height:400px;">
+		
+	</div>
+<script >
+ 
+$(function () {
 
     $.getJSON('https://www.highcharts.com/samples/data/jsonp.php?filename=aapl-c.json&callback=?', function (data) {
         // Create the chart
-        $('#graph').highcharts('StockChart', {
+        $('#container').highcharts('StockChart', {
 
 
             rangeSelector : {
@@ -115,6 +118,22 @@ require_once("header.php");
     });
 
 });
+ 
+var chart1; // globally available
+$(function() {
+      chart1 = new Highcharts.StockChart({
+         chart: {
+            renderTo: 'graph'
+         },
+         rangeSelector: {
+            selected: 1
+         },
+         series: [{
+            name: 'USD to EUR',
+            data: data // predefined JavaScript array
+         }]
+      });
+   });
 
 </script>
 
