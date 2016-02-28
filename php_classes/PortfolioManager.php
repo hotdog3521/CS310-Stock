@@ -115,7 +115,7 @@ class PortfolioManager
         }
 
         //create new stock list that has stock object in it.
-        foreach (array_expression as $key => $value) {
+        foreach (csvfile as $key => $value) {
             
             
             if($i !== count($csvfile)-1) {
@@ -124,7 +124,7 @@ class PortfolioManager
                 $index++;
             }else {
                 //last element of the csvfile is balance of the user
-                $newBalance = $key
+                $newBalance = $key;
             }
         }
 
