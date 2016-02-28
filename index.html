@@ -3,9 +3,16 @@
 Test
 
 <?php
-include 'financeapi.php';
+//include 'financeapi.php';
+include 'php_classes/PortfolioManager.php';
+include 'php_classes/Trader.php';
+include 'php_classes/APIManager.php';
 
-$finance = new financeapi();
+
+//$finance = new financeapi();
+$APIManager = new APIManager();
+$portfolioManager = new portfolioManager("FILL_IN_USERNAME", $APIManager);
+$trader = new Trader($APIManager, $portfolioManager);
 
 ?>
 

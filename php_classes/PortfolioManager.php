@@ -1,14 +1,12 @@
 <?php
-include 'APIManager.php';
 include 'Portfolio.php';
 include 'DBManager.php';
-include 'Portfolio.php';
 include 'Stock.php';
 
 class PortfolioManager
 {
     // property declaration
-    private $username;
+    private $mUsername;
     private $mDB; //DBManager
     private $mAPI; //APIManagers
     private $mPortfolio; //Portfolio
@@ -16,14 +14,14 @@ class PortfolioManager
 
     );
 
-    public function __construct($username) {
+    public function __construct($username, $API) {
         //constructor
         $this->username = $username;
 
         $this->mDB = new DBManager();
-        $this->mAPI = new APIManager();
-        $this->mUser = $mUser;
-        $this->mPortfolio = $mPortfolio;
+        $this->mAPI = $API;
+        $this->mUsername = $username;
+        $this->mPortfolio = new Portfolio(null, 0, 0, null);
         $this->mVisibleStocks = $mVisibleStocks;
 
         $this->loadPortfolio();
@@ -130,7 +128,7 @@ class PortfolioManager
 
 
         $newPortfolio = new Portfolio($this->getWatchList(), $newBalance, $this->getNetPortfolioValue(), $newStockList);
-        $mPortfolio = $newPortfolio
+        $mPortfolio = $newPortfolio;
         
 
 

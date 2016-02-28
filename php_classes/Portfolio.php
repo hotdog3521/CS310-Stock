@@ -1,5 +1,4 @@
 <?php
-include 'Stock.php';
 
 class Portfolio
 {

@@ -1,6 +1,4 @@
 <?php
-include 'APIManager.php'
-include 'PortfolioManager.php'
 
 class Trader
 {
@@ -8,7 +6,7 @@ class Trader
     private $mAPI;        //APIManager
     private $portfolioManager;     //PortfolioManager
 
-    public function  __construct($mAPI, $portfolioManager); {
+    public function  __construct($mAPI, $portfolioManager) {
         //constructor
         $this->mAPI = $mAPI;
         $this->portfolioManager = $portfolioManager;
