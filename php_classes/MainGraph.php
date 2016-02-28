@@ -1,23 +1,25 @@
 <?php
-include 'APIManager.php'
-include 'Stock.php'
+include 'APIManager.php';
+include 'Stock.php';
 
 class MainGraph
 {
     // property declaration
     private $mAPI;        //APIManager
+    private $timeSetting;       // string literal of time range selection: "1day", "5days", "1month", "6months", "alltime"
     private $mStockList = array(
             //array of stock
     );
-    private $watchList = array(
+    private $mWatchList = array(
             //array of stock
     );
 
-    public function__construct($mAPI, $stockList, $watchList) {
+    public function __construct($mAPI, $stockList, $watchList) {
         //constructor
         $this->mAPI = $mAPI;
-        $this->mStockList = $mStockList;
-        $this->watchList = $watchList;
+        $this->mStockList = $stockList;
+        $this->mWatchList = $watchList;
+        $timeSetting = "6months";
 
     }
 
@@ -35,16 +37,21 @@ class MainGraph
     }
 
 
-    public function setTimeFrame($time) {
+    public function setTimeFrame($timeSetting) {
         //changes the the range of the X-axis and sets the time frame to the selected time
+        $this->timeSetting = $timeSetting;
     }
 
     public function setStockList($stockList) {
         //sets the $stockList parameter to the passed in variable
+
+        $this->mStockList = $stockList;
     }
 
     public function setWatchList($watchList) {
         //sets the $watchList parameter to the passed in variable
+
+        $this->mWatchList = $watchList;
     }
 
 }
