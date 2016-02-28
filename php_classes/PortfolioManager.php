@@ -118,7 +118,7 @@ class PortfolioManager
         foreach (csvfile as $key => $value) {
             
             
-            if($i !== count($csvfile)-1) {
+            if($index !== count($csvfile)-1) {
                 $stock = new Stock($key, null, null, $value);
                 $newStockList[$index] = $stock;
                 $index++;
