@@ -96,23 +96,20 @@ class PortfolioManager
     public function uploadCSV($filePath) {
 
         $newBalance = 0; //double
-        //define array for stock list
-        $csvfile = array(
-
-
-        );
-
-        $newStockList = array(
-
-        );
-
-        
+        //define array for stock 
+/*
+        $csvfile = array();
+        $newStockList = array();
+*/
+/*
         // replace the current Portfolio with the new one uploaded
         $csv_reader = fopen($filePath, 'r');
         while(!fof($file_handle) ) {
             $csvfile[] = fgetcsv($csv_reader);
         }
         fclose($myfile);
+
+
         //get the new stocklist from csvfile array
         for($i = 0; $i < count($csvfile); ++$i) {
             
@@ -124,8 +121,35 @@ class PortfolioManager
             }
             
         }
+*/
 
+        $csv_reader = NULL;     //csv file
+        $csvfile = array();
+        $newStockList = array();
+        //getting csv and put that into array
+        if(($csv_reader = fopen($filePath, 'r')) !== FALSE) {
 
+            while(($row = fgetcsv($csv_reader, 1000, ',')) !== FALSE) {
+
+                if(!$csv_reader) {
+                    $csv_reader = $row;
+                } else {
+                    $csvfile[] = array_combine($csv_reader, $row);
+                } 
+                fclose($csv_reader);
+            }
+        }
+        //create new stock list that has stock object in it.
+        foreach (array_expression as $key => $value) {
+            
+            
+            if($i !== count($csvfile)-1) {
+                
+            }else {
+                //last element of the csvfile is balance of the user
+                $newBalance = $key
+            }
+        }
 
         $newPortfolio = new Portfolio($this->getWatchList(), $newBalance, $this->getNetPortfolioValue(), $newStockList);
         $mPortfolio = $newPortfolio;
