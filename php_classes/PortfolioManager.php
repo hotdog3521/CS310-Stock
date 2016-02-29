@@ -1,7 +1,8 @@
 <?php
 include 'Portfolio.php';
-include 'DBManager.php';
 include 'Stock.php';
+include 'DBManager.php';
+
 
 class PortfolioManager
 {
@@ -22,10 +23,13 @@ class PortfolioManager
         $this->mUsername = $username;
         
         // get the user specified in the database
-        $user = $this->mDB->login($email, $password);
+        
 
 
-        $this->loadPortfolio($user);
+
+
+
+        $this->loadPortfolio($email, $password);
     }
 
     // method declaration
@@ -33,8 +37,16 @@ class PortfolioManager
         //returns true or false depending on the status of the logout process
         //boolean function
     }
-    public function loadPortfolio($user){
-        // should take the username and access the corresponding information from MySQL to create a NEW portfolio
+    public function loadPortfolio($email, $password){
+        // access the corresponding information from MySQL to create a NEW portfolio
+
+        $user = $this->mDB->login($email, $password);
+
+        $watchlist_id = $user[0]->watchlist_id;
+
+        $tempWatchList = $this->mDB->getWatchList($watchlist_id); 
+        $tempProfileList = array();
+
 
         $this->mPortfolio = new Portfolio(null, 0, 0, null);
     }
