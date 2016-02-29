@@ -1,7 +1,8 @@
 <?php
 include 'Portfolio.php';
-include 'DBManager.php';
 include 'Stock.php';
+include 'DBManager.php';
+
 
 class PortfolioManager
 {
@@ -14,17 +15,21 @@ class PortfolioManager
 
     );
 
-    public function __construct($username, $API) {
+    public function __construct($username, $API, $email, $password) {
         //constructor
-        $this->username = $username;
 
         $this->mDB = new DBManager();
         $this->mAPI = $API;
         $this->mUsername = $username;
-        $this->mPortfolio = new Portfolio(null, 0, 0, null);
-        $this->mVisibleStocks = $mVisibleStocks;
+        
+        // get the user specified in the database
+        
 
-        $this->loadPortfolio();
+
+
+
+
+        $this->loadPortfolio($email, $password);
     }
 
     // method declaration
@@ -32,9 +37,18 @@ class PortfolioManager
         //returns true or false depending on the status of the logout process
         //boolean function
     }
-    public function loadPortfolio(){
+    public function loadPortfolio($email, $password){
+        // access the corresponding information from MySQL to create a NEW portfolio
 
-        // should take the username and access the corresponding information from MySQL to create a NEW portfolio
+        $user = $this->mDB->login($email, $password);
+
+        $watchlist_id = $user[0]->watchlist_id;
+
+        $tempWatchList = $this->mDB->getWatchList($watchlist_id); 
+        $tempProfileList = array();
+
+
+        $this->mPortfolio = new Portfolio(null, 0, 0, null);
     }
     public function savePortfolio(){
         // should take the current Portfolio stored in $mPortfolio, and update the MySQL tables according to its info
@@ -95,44 +109,46 @@ class PortfolioManager
     }
     public function uploadCSV($filePath) {
 
+        //structure of csv 
+        //STOCK_TICKER_NAME, DATE_BOUGHT_DOLLARS, PRICE_BOUGHT, NUMBER_OF_SHARES
+        //NFLX                11/2/2015             108.92         10
+
         $newBalance = 0; //double
         $csv_reader = NULL;     //csv file
-        $csvfile = array();
         $newStockList = array();
-        $index = 0;
+        $index = 0; //for new stock list
+        $isFirstLine = TRUE;
         //getting csv and put that into array
         if(($csv_reader = fopen($filePath, 'r')) !== FALSE) {
+            //read line by line
+            //data is array that contains all elements in a row.
+            while(($data = fgetcsv($csv_reader, 1000, ',')) !== FALSE)  {
+                $numElementInRow = count($data); //number of element in a row
 
-            while(($row = fgetcsv($csv_reader, 1000, ',')) !== FALSE) {
+        
+                $ticker = $data[1];
+                $boughtDate = $data[2];
+                $boughtPrice = $data[3];
+                $numberShares = $data[4];
 
-                if(!$csv_reader) {
-                    $csv_reader = $row;
-                } else {
-                    $csvfile[] = array_combine($csv_reader, $row);
-                } 
-                fclose($csv_reader);
+                //error checking if ticker is in the API
+                //if not, just don't add it and don't add up to the new balance
+                //syntax for stock -> Stock($name, $symbol, $closingPrice, $quantity)
+                if($isFirstLine == FLASE) { //ignore first line since first row is not actaul data.
+                    $stock = new Stock($ticker, $ticker, $boughtPrice, $numberShares);
+                    $newStockList[$index] = $stock;
+                    //calculating new balnce for newPortfolio
+                    $newBalance += $boughtPrice * $numberShares;
+                    $index++;
+                }
+                $isFirstLine = FALSE;
             }
+            fclose($csv_reader);
         }
-
-        //create new stock list that has stock object in it.
-        foreach (csvfile as $key => $value) {
-            
-            
-            if($index !== count($csvfile)-1) {
-                $stock = new Stock($key, null, null, $value);
-                $newStockList[$index] = $stock;
-                $index++;
-            }else {
-                //last element of the csvfile is balance of the user
-                $newBalance = $key;
-            }
-        }
-
+ 
         $newPortfolio = new Portfolio($this->getWatchList(), $newBalance, $this->getNetPortfolioValue(), $newStockList);
         $mPortfolio = $newPortfolio;
         
-
-
         $this->savePortfolio();
     }
 

@@ -15,6 +15,7 @@ class Trader
 
     // method declaration
     public function isStock($companyName) {
+        return $this->$mAPI->isStock($companyName);
         //verifies if the specified stock name is valid or not.
     }
     public function canBuy($stock,$quantity) {
@@ -37,15 +38,17 @@ class Trader
     }
     public function sellStock($stock, $quantity) {
         //accesses the API and sells the stocks. And update user’s portfolio
-    	var $stockList=$this->portfolioManager->getStockList();
-    	if($stockList[$stock]->getQuantity >= $quantity){
+    	$stockList = $this->portfolioManager->getStockList();
+    	if($stockList[$stock]->getQuantity() >= $quantity){
 			//update net portfolio value and account ballance
 			//confirmation popup function (Front end JS)
 			//sell stock
-    		
+
     	}else {
+
+    	} else {
     		//error popup function
-    		return
+    		return;
     	}
     }
 
