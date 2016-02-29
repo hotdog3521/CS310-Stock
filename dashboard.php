@@ -13,7 +13,12 @@ require_once("header.php");
 	// 		data: form.serialize(),
 	// 		success: function(data)
 	// 		{
-				
+	// 			var tableHTML = "";
+
+	// 			$.each(data, function(i, item)
+	// 			{
+	// 				tableHTML += "<tr><td>" + item['Name'] + "</td><td>" + item['symbol'] + "</td><td>" + item['Open'] + "</td>";
+	// 			});
 	// 		}
 	// 	});
 
@@ -49,6 +54,7 @@ require_once("header.php");
 <div class="container">
 	<div class="col-md-6 well" style="margin:100px auto; float:none;">
 		<h1>Portfolio</h1>
+		
 
 		<form action="p_stock_search.php" method="get" id="portfolio_form" class="form-inline">
 			<div class="form-group">
@@ -58,20 +64,16 @@ require_once("header.php");
 			<button class="btn btn-success" type="submit">Search</button>
 		</form>
 		<br>
-		<!-- <div class="table-responsive table-bordered">
+		<div class="table-responsive table-bordered">
 			<table id="pSearch_Table" class="table">
 				<thead>
 					<th>Company Name</th>
 					<th>Stock Name</th>
+					<th>Opening Price</th>
 					<th>Add Stock</th>
 				</thead>
-				<tbody>
-					<tr>
-						
-					</tr>
-				</tbody>
 			</table>
-		</div> -->
+		</div>
 	</div>
 	<div class="col-md-6 well" style="margin:0px auto; float:none;">
 		<h1>Watchlist</h1>

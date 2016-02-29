@@ -1,10 +1,10 @@
 <?php
-
+ini_set('display_errors', 'on');
 $filepath = realpath (dirname(__FILE__));
 
 include($filepath.'/YahooFinanceApi/ApiClient.php');
 
-$client = new \YahooFinanceApi\ApiClient();
+$client = new YahooFinanceApi\ApiClient();
 
 //Fetch basic data
 $data = $client->getQuotesList("YHOO"); //Single stock
