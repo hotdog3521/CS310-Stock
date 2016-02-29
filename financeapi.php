@@ -1,12 +1,13 @@
 <?php
 
 $filepath = realpath (dirname(__FILE__));
-
-include($filepath.'/YahooFinanceApi/ApiClient.php');
-
-$client = new \YahooFinanceApi\ApiClient();
+include($filepath.'/php_classes/APIManager.php');
+$mAPI = new APIManager();
+$myArray = $mAPI->getStockInfo('GOOGL');
+print $myArray['price'];
 
 //Fetch basic data
+/*
 $data = $client->getQuotesList("YHOO"); //Single stock
 $file = "YHOO.json";
 $json = json_encode($data);
@@ -23,6 +24,9 @@ $data = $client->getHistoricalData("YHOO", $date1, $date2);
 
 
 file_put_contents($file, json_encode($data));
+
+*/
+
 /*
 
 $json = json_encode($data);
