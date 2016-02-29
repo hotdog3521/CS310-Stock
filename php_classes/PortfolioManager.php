@@ -114,10 +114,10 @@ class PortfolioManager
                 $numElementInRow = count($data); //number of element in a row
 
         
-                $ticker = $data[1];
-                $boughtDate = $data[2];
-                $boughtPrice = $data[3];
-                $numberShares = $data[4];
+                $ticker = $data[0];
+                $boughtDate = $data[1];
+                $boughtPrice = $data[2];
+                $numberShares = $data[3];
 
                 //error checking if ticker is in the API
                 //if not, just don't add it and don't add up to the new balance
