@@ -105,7 +105,7 @@ class PortfolioManager
         $csv_reader = NULL;     //csv file
         $newStockList = array();
         $index = 0; //for new stock list
-
+        $isFirstLine = TRUE;
         //getting csv and put that into array
         if(($csv_reader = fopen($filePath, 'r')) !== FALSE) {
             //read line by line
@@ -122,13 +122,14 @@ class PortfolioManager
                 //error checking if ticker is in the API
                 //if not, just don't add it and don't add up to the new balance
                 //syntax for stock -> Stock($name, $symbol, $closingPrice, $quantity)
-                $stock = new Stock($ticker, $ticker, $boughtPrice, $numberShares);
-                $newStockList[$index] = $stock;
-                $index++;
-                //calculating new balnce for newPortfolio
-                $newBalance += $boughtPrice * $numberShares;
-                
-                
+                if($isFirstLine !== FLASE) { //ignore first line since first row is not actaul data.
+                    $stock = new Stock($ticker, $ticker, $boughtPrice, $numberShares);
+                    $newStockList[$index] = $stock;
+                    //calculating new balnce for newPortfolio
+                    $newBalance += $boughtPrice * $numberShares;
+                    $index++;
+                }
+                $isFirstLine = FALSE;
             }
             fclose($csv_reader);
         }
