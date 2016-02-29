@@ -119,9 +119,6 @@ class PortfolioManager
                 $boughtPrice = $data[3];
                 $numberShares = $data[4];
 
-                //calculating new balnce for newPortfolio
-                $newBalance += $boughtPrice * $numberShares;
-
                 //error checking if ticker is in the API
                 //if not, just don't add it and don't add up to the new balance
                 //syntax for stock -> Stock($name, $symbol, $closingPrice, $quantity)
