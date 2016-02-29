@@ -14,17 +14,18 @@ class PortfolioManager
 
     );
 
-    public function __construct($username, $API) {
+    public function __construct($username, $API, $email, $password) {
         //constructor
-        $this->username = $username;
 
         $this->mDB = new DBManager();
         $this->mAPI = $API;
         $this->mUsername = $username;
-        $this->mPortfolio = new Portfolio(null, 0, 0, null);
-        $this->mVisibleStocks = $mVisibleStocks;
+        
+        // get the user specified in the database
+        $user = $this->mDB->login($email, $password);
 
-        $this->loadPortfolio();
+
+        $this->loadPortfolio($user);
     }
 
     // method declaration
@@ -32,9 +33,10 @@ class PortfolioManager
         //returns true or false depending on the status of the logout process
         //boolean function
     }
-    public function loadPortfolio(){
-
+    public function loadPortfolio($user){
         // should take the username and access the corresponding information from MySQL to create a NEW portfolio
+
+        $this->mPortfolio = new Portfolio(null, 0, 0, null);
     }
     public function savePortfolio(){
         // should take the current Portfolio stored in $mPortfolio, and update the MySQL tables according to its info

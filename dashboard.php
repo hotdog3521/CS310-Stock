@@ -1,6 +1,9 @@
 <?php
 require_once("header.php");
+
 ?>
+
+
 
 <script type="text/javascript">
 	// var form = $('#portfolio_form');
@@ -78,6 +81,61 @@ require_once("header.php");
 		
 	</div>
 </div>
+
+<!-- The below is the code for the hisghstock graph -->
+
+
+	
+
+	<div  id="container" style="width:100%; height:400px;">
+		
+	</div>
+<script >
+ 
+$(function () {
+
+    $.getJSON('https://www.highcharts.com/samples/data/jsonp.php?filename=aapl-c.json&callback=?', function (data) {
+        // Create the chart
+        $('#container').highcharts('StockChart', {
+
+
+            rangeSelector : {
+                selected : 1
+            },
+
+            title : {
+                text : 'AAPL Stock Price'
+            },
+
+            series : [{
+                name : 'AAPL',
+                data : data,
+                tooltip: {
+                    valueDecimals: 2
+                }
+            }]
+        });
+    });
+
+});
+ 
+var chart1; // globally available
+$(function() {
+      chart1 = new Highcharts.StockChart({
+         chart: {
+            renderTo: 'graph'
+         },
+         rangeSelector: {
+            selected: 1
+         },
+         series: [{
+            name: 'USD to EUR',
+            data: data // predefined JavaScript array
+         }]
+      });
+   });
+
+</script>
 
 
 </body>
