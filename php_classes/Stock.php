@@ -5,7 +5,8 @@ class Stock
     private $name;        //string
     private $symbol;     //string
     private $closingPrice; //Double
-    private $quantity //integer
+    private $quantity; //integer
+
     public function __construct($name, $symbol, $closingPrice,$quantity) {
         //constructor
         $this->name = $name;
@@ -53,11 +54,11 @@ class Stock
     public function getQuantity() {
         //returns int
         //returns the quantity
-        return $this->quantity
+        return $this->quantity;
     }
 
     public function setQuantity($quantity){
-        $this->quantity=$quantity
+        $this->quantity=$quantity;
     }
 }
 ?>
