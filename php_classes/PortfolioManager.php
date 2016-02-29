@@ -122,7 +122,7 @@ class PortfolioManager
                 //error checking if ticker is in the API
                 //if not, just don't add it and don't add up to the new balance
                 //syntax for stock -> Stock($name, $symbol, $closingPrice, $quantity)
-                if($isFirstLine !== FLASE) { //ignore first line since first row is not actaul data.
+                if($isFirstLine == FLASE) { //ignore first line since first row is not actaul data.
                     $stock = new Stock($ticker, $ticker, $boughtPrice, $numberShares);
                     $newStockList[$index] = $stock;
                     //calculating new balnce for newPortfolio
