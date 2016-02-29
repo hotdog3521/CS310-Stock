@@ -16,20 +16,8 @@ class APIManager
     }
     public function getStockInfo($companyName) {
     	//Given a company name in String form, this function queries the finance API and returns the stock’s information
-      $quote = $this->client->getStock($companyName); //Single stock
-      $json = str_replace("\n", "", $quote);
-      $data = substr($json, 4, strlen($json) -5);
-      $json = json_decode(utf8_decode($data));
-
-      $output = array(
-          "symbol" => $json->t,
-          "market" => $json->e,
-          "price" => $json->l,
-          "datetime" => $json->lt
-      );
-
-      return $output;
-
+     $quote = $this->client->getStock($companyName); //Single stock
+      return $quote;
       // json format:
       /*
         {
