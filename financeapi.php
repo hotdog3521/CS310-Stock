@@ -3,8 +3,13 @@
 $filepath = realpath (dirname(__FILE__));
 include($filepath.'/php_classes/APIManager.php');
 $mAPI = new APIManager();
+/*
 $myArray = $mAPI->getStockInfo('GOOGL');
 print $myArray['price'];
+*/
+
+if($mAPI->isStock('GOOGLE')) print 1;
+else print 0;
 
 //Fetch basic data
 /*
