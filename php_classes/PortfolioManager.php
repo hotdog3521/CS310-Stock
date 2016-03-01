@@ -12,67 +12,32 @@ class PortfolioManager
     private $mDB; //DBManager
     private $mAPI; //APIManagers
     private $mPortfolio; //Portfolio
-    private $watchlist_id;
-    private $portfolio_id;
     private $mVisibleStocks = array(
 
     );
 
     private $userId;
     private $portfolioId;
+    private $watchListId;
 
     public function __construct($id)
     {
         $this->mDB = new DBManager();
         $this->userId = $id;
         $this->portfolioId = $this->mDB->getPortfolioId($id);
+        $this->watchListId = $this->mDB->getWatchListId($id);
+
+        // $this->mAPI = new APIManager();
     }
-
-    // public function __construct($username, $API, $email, $password) {
-    //     //constructor
-
-    //     $this->mDB = new DBManager();
-    //     $this->mAPI = $API;
-    //     $this->mUsername = $username;
-        
-    //     // get the user specified in the database
-    //     // $this->loadPortfolio($email, $password);
-    // }
 
     // method declaration
     public function logout() {
         //returns true or false depending on the status of the logout process
         //boolean function
     }
-    public function loadPortfolio($email, $password){
-        // access the corresponding information from MySQL to create a NEW portfolio
 
-        // $user = $this->mDB->loginAuthenticate($email, $password);
-
-        // $watchlist_id = $user[0]->watchlist_id;
-
-        // $tempWatchList = $this->mDB->getWatchList($watchlist_id); 
-        // $tempProfileList = array();
-
-        // get the user info array from the email/password
-        $user = $this->mDB->login($email, $password);
-
-        // get the user's watchlist_id and portfolio_id
-        $this->watchlist_id = $user[0]->watchlist_id;
-        $this->portfolio_id = $user[0]->portfolio_id;
-
-        // load in the watchList and portfolioList from MySQL
-        $tempWatchList = $this->mDB->getWatchList($this->watchlist_id); 
-        $tempProfileList = $this->mDB->getPortfolioList($this->portfolio_id);
-
-
-        // $this->mPortfolio = new Portfolio(null, 0, 0, null);
-        // create a new Portfolio and set it to the member variable
-        $this->mPortfolio = new Portfolio($tempWatchlist, 0, 0, $tempProfileList);
-    }
     public function savePortfolio(){
         // should take the current Portfolio stored in $mPortfolio, and update the MySQL tables according to its info
-        $this->mDB->updateWatchList($this->watchlist_id, $mPortfolio->getWatchList());
     }
 
     public function getVisibleStocks($stockPrefix) {
@@ -105,14 +70,13 @@ class PortfolioManager
         // return $this->mPortfolio->getStockList($user);
 
         return $this->mDB->getPortfolio($this->userId);
-
-
-
     }
     public function addStock($stock) {
         //calls the addStock method in $mPortfolio
 
-        // $this->mPortfolio->addStock($stock);
+        $this->mPortfolio->addStock($stock);
+
+        // do the same for the database
        
         $this->mDB->addStock($stock, $this->portfolioId);
 
@@ -122,20 +86,29 @@ class PortfolioManager
         //calls the removeStock method $mPortfolio
 
         $this->mPortfolio ->removeStock($stock);
+
+        // update the database as well
+        $this->mDB->removeFromPortfolioList($this->portfolio_id, $stock);
     }
     public function getWatchList() {
         //calls the getWatchList function in $mPortfolio 
 
-        return $this->mPortfolio->getWatchList();
+        return $this->mDB->getWatchList($this->userID);
     }
-    public function addToWatchList($stock) {
-        //calls the addToWatchList function in $mPortfolio
+    public function addWatchListStock($stock) {
+        //calls the addWatchListStock function in $mPortfolio
 
         $this->mPortfolio->addToWatchList($stock);
+
+        // update the database as well
+
+        $this->mDB->addWatchListStock($stock->getSymbol(), $this->watchListId);
     }
     public function removeFromWatchList($stock) {
         //calls the removeFromWatchList function in $mPortfolio
         $this->mPortfolio->removeFromWatchList($stock);
+        // update the database as well
+        $this->mDB->removeFromWatchList($this->watchListId, $stock);
     }
     public function uploadCSV($filePath) {
 
@@ -180,6 +153,15 @@ class PortfolioManager
         $mPortfolio = $newPortfolio;
         
         $this->savePortfolio();
+    }
+
+    // function to load the portfolio from the database to a new Portfolio object
+    public function loadPortfolio(){
+
+        $portfolioStocks = $this->mDB->getPortfolio($userID);
+        $watchlistStocks = $this->mDB->getWatchList($userID);
+
+        $this->mPortfolio = new Portfolio($watchlistStocks, 0, 0, $portfolioStocks);
     }
 
 

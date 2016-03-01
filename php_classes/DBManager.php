@@ -15,7 +15,7 @@ class DBManager
 
         $this->pdo = new PDO("mysql:host=$this->host;dbname=$this->dbname", $this->user, $this->pw);
     }
-    
+
     public function getUsers()
     {
         $sql = "SELECT * FROM users";
@@ -37,6 +37,17 @@ class DBManager
         $pID = $statement->fetchAll(PDO::FETCH_OBJ);
 
         return $pID[0]->id;
+    }
+
+    public function getWatchListId($userID){
+        // $sql = "SELECT * FROM watchlists WHERE watchlists.user_id = ?";
+
+        // $statement = $this->pdo->prepare($sql);
+        // $statement->bindValue(1, $userId, PDO::PARAM_INT);
+        // $statement->execute();
+        // $wID = $statement->fetchAll(PDO::FETCH_OBJ);
+
+        // return $wID[0]->id;
     }
 
     public function addStock($stockTicker, $portfolioId) {
@@ -62,6 +73,28 @@ class DBManager
         $statement->execute();
 
     }
+    public function addWatchListStock($stockTicker, $watchListId) {
+        // adds a stock tot he database that will be in the user's watchlist during future sessions
+
+        $sql = "INSERT IGNORE INTO stocks (stocks.stock_name) VALUES (?)";
+        $statement = $this->pdo->prepare($sql);
+        $statement->bindValue(1, $stockTicker, PDO::PARAM_STR);
+        $statement->execute();
+
+
+        $sql = "SELECT * FROM stocks WHERE stocks.stock_name = ?";
+        $statement = $this->pdo->prepare($sql);
+        $statement->bindValue(1, $stockTicker, PDO::PARAM_STR);
+        $statement->execute();
+        $result = $statement->fetchAll(PDO::FETCH_OBJ);
+        $stockId = $result[0]->id;
+
+        $sql = "INSERT IGNORE INTO portfolio_stocks (watchlist_stocks.watchlist_id, watchlist_stocks.stock_id) VALUES (?,?)";
+        $statement = $this->pdo->prepare($sql);
+        $statement->bindValue(1, $watchListId, PDO::PARAM_INT);
+        $statement->bindValue(2, $stockId, PDO::PARAM_INT);
+        $statement->execute();
+    }
 
     public function getPortfolio($userId)
     {
@@ -79,11 +112,28 @@ class DBManager
         return $stocks;
     }
 
+    public function getWatchList($userID)
+    {
+        $sql = "SELECT stocks.id, stocks.stock_name FROM stocks
+            LEFT JOIN watchlist_stocks ON watchlist_stocks.stock_id = stocks.id 
+            LEFT JOIN watchlists ON watchlists.id = watchlists_stocks.watchlist_id 
+            LEFT JOIN users ON users.id = watchlists.user_id
+            WHERE users.id = ?";
+
+        $statement = $this->pdo->prepare($sql);
+        $statement->bindValue(1, $userId, PDO::PARAM_INT);
+        $statement->execute();
+        $stocks = $statement->fetchAll(PDO::FETCH_OBJ);
+
+        return $stocks;
+    }
 
 
+    /*
     public function removeStock($stockTicker) {
     	//removes a stock from the databse so that it will not be in the user’s portfolio during future
     }
+    */
     public function logInAuthenticate($email, $password) {
     	//Usage: this function will cross check the parameters passed in to the ones stored in the database.  return boolean
         $sql = "SELECT * FROM users
@@ -103,6 +153,19 @@ class DBManager
 
         return $user[0]->id;
     }
+    /*
+
+
+    public function updateWatchList($watchlist_id, $new_watchlist){
+
+        // clear the watchlist_stock table of the user's old watchlist stocks
+        $sql = "DELETE FROM watchlist_stocks
+                WHERE watchlist_stocks.watchlist_id = ?";
+        $statement = $this->pdo->prepare($sql);
+        $statement -> bindValue(1, $watchlist_id, PDO::PARAM_INT);
+        $statement->execute();
+      }
+
 
     // takes in a watchlist_id from a particular user
     public function getWatchlist($watchlist_id){
@@ -150,7 +213,7 @@ class DBManager
         $statement->bindValue(1, $portfolio_id, PDO::PARAM_INT);
         $statement->execute();
 
-        //result stores all the stock_ids in the watchlist
+        //result stores all the stock_ids in the portfolio_list
         $result = $statement->fetchAll(PDO::FETCH_OBJ);
 
         //initialize empty array
@@ -181,17 +244,11 @@ class DBManager
     public function addToWatchList($watchlist_id, $stock){
 
     }
-
-    /*
-    public function addStock($stockTicker, $stock_name) {
-    	//adds a stock to the database so that it will be in the user’s portfolio during future sessions
-
-
-    }
     */
+
     public function removeFromWatchList($watchlist_id, $stock) {
     	//removes a stock from the databse so that it will not be in the user’s portfolio during future
-        
+
 
         $sql = "DELETE FROM watchlist_stocks
                 WHERE watchlist_stocks.watchlist_id = ?
@@ -214,5 +271,18 @@ class DBManager
         $statement->bindValue(2, $stock->getID(), PDO::PARAM_INT);
         $statement->execute();
     }
-}
+
+    public function searchStocks($stock_name){
+        // USage: this function will search the SQL database for stocks of similar names and return them in an array.
+        $sql = $this->pdo->prepare("SELECT * FROM symbols WHERE symbol LIKE '%".$stock_name."%'");
+        $sql->execute();
+
+        $result = $sql->fetchAll(PDO::FETCH_OBJ);
+
+
+        return $result;
+
+    }
+  }
+
 ?>

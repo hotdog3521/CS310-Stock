@@ -9,7 +9,8 @@ class client{
   }
 
   public function getStock($Symbol){
-    if($data = @file_get_contents('http://finance.google.com/finance/info?q=' . $Symbol)){
+    $data = @file_get_contents('http://finance.google.com/finance/info?q=' . $Symbol);
+    if(strlen($data)!=0){
       $data = str_replace("\n", "", $data);
       $data = substr($data, 4, strlen($data) -5);
       $json = json_decode(utf8_decode($data));
@@ -23,6 +24,8 @@ class client{
 
       return $output;
     }
+    else
+      return 0;
   }
 
 }
