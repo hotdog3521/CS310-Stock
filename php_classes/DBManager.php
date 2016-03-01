@@ -51,6 +51,17 @@ class DBManager
         return true;
     }
 
+
+    public function updateWatchList($watchlist_id, $new_watchlist){
+
+        // clear the watchlist_stock table of the user's old watchlist stocks
+        $sql = "DELETE FROM watchlist_stocks
+                WHERE watchlist_stocks.watchlist_id = ?";
+        $statement = $this->pdo->prepare($sql);
+        $statement -> bindValue(1, $watchlist_id, PDO::PARAM_INT);
+        $statement->execute();
+      }
+
     // takes in a watchlist_id from a particular user
     public function getWatchlist($watchlist_id){
 
@@ -124,39 +135,55 @@ class DBManager
         return $portfolioList;
     }
 
-    public function updateWatchList($watchlist_id, $new_watchlist){
-
-        // clear the watchlist_stock table of the user's old watchlist stocks
-        $sql = "DELETE FROM watchlist_stocks
-                WHERE watchlist_stocks.watchlist_id = ?";
-        $statement = $this->pdo->prepare($sql);
-        $statement -> bindValue(1, $watchlist_id, PDO::PARAM_INT);
-        $statement->execute();
-
-        // insert from the portfolio
+    // takes in a watchlist ID and a stock Object
+    public function addToWatchList($watchlist_id, $stock){
 
     }
 
+    /*
     public function addStock($stockTicker, $stock_name) {
     	//adds a stock to the database so that it will be in the user’s portfolio during future sessions
 
 
     }
-    public function removeStock($stockTicker) {
+    */
+    public function removeFromWatchList($watchlist_id, $stock) {
     	//removes a stock from the databse so that it will not be in the user’s portfolio during future
-    }
-    public function logInAuthenticate($username, $password) {
-    	//Usage: this function will cross check the parameters passed in to the ones stored in the database.  return boolean
 
+
+        $sql = "DELETE FROM watchlist_stocks
+                WHERE watchlist_stocks.watchlist_id = ?
+                AND watchlist_stocks.stock_id = ?";
+        $statement = $this->pdo->prepare($sql);
+        $statement->bindValue(1, $watchlist_id, PDO::PARAM_INT);
+        $statement->bindValue(2, $stock->getID(), PDO::PARAM_INT);
+        $statement->execute();
+
+    }
+
+    public function removeFromPortfolioList ($portfolio_id, $stock){
+        // removes a stock from a portfolio list
+
+        $sql = "DELETE FROM portfoio_stocks
+                WHERE portfolio_stocks.portfolio_id = ?
+                AND portfolio_stocks.stock_id = ?";
+        $statement = $this ->pdo->prepare($sql);
+        $statement->bindValue(1, $portfolio_id, PDO::PARAM_INT);
+        $statement->bindValue(2, $stock->getID(), PDO::PARAM_INT);
+        $statement->execute();
     }
 
     public function searchStocks($stock_name){
         // USage: this function will search the SQL database for stocks of similar names and return them in an array.
-        $sql = "SELECT * FROM symbols WHERE name LIKE %'" . $stock_name . "'%";
-        $statement = $this->pdo->prepare($sql);
-        $statement->execute();
+        $sql = $this->pdo->prepare("SELECT * FROM symbols WHERE symbol LIKE '%".$stock_name."%'");
+        $sql->execute();
 
+        $result = $sql->fetchAll(PDO::FETCH_OBJ);
+
+
+        return $result;
 
     }
+  }
 
 ?>

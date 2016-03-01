@@ -7,14 +7,22 @@ include($filepath.'/YahooFinanceApi/ApiClient.php');
 $client = new YahooFinanceApi\ApiClient();
 
 include($filepath.'/php_classes/APIManager.php');
+include($filepath.'/DBManager.php');
+
 $mAPI = new APIManager();
+$mDB = new DBManager();
+
 /*
 $myArray = $mAPI->getStockInfo('GOOGL');
 print $myArray['price'];
 */
 
-if($mAPI->isStock('GOOGLE')) print 1;
-else print 0;
+//if($mAPI->isStock('GOOGLE')) print 1;
+//else print 0;
+
+$array = $mDB->searchStocks('G');
+
+print_r(array_values($array));
 
 
 //Fetch basic data
