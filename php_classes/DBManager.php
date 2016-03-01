@@ -1,4 +1,6 @@
 <?php
+ini_set("display_errors", "on");
+
 class DBManager
 {
     // property declaration
@@ -25,9 +27,60 @@ class DBManager
         return $users;
     }
 
-    public function addStock($stockTicker) {
-    	//adds a stock to the database so that it will be in the user’s portfolio during future sessions
+    public function getPortfolioId($userId)
+    {
+        $sql = "SELECT * FROM portfolios WHERE portfolios.user_id = ?";
+
+        $statement = $this->pdo->prepare($sql);
+        $statement->bindValue(1, $userId, PDO::PARAM_INT);
+        $statement->execute();
+        $pID = $statement->fetchAll(PDO::FETCH_OBJ);
+
+        return $pID[0]->id;
     }
+
+    public function addStock($stockTicker, $portfolioId) {
+    	//adds a stock to the database so that it will be in the user’s portfolio during future sessions
+
+        $sql = "INSERT IGNORE INTO stocks (stocks.stock_name) VALUES (?)";
+        $statement = $this->pdo->prepare($sql);
+        $statement->bindValue(1, $stockTicker, PDO::PARAM_STR);
+        $statement->execute();
+
+
+        $sql = "SELECT * FROM stocks WHERE stocks.stock_name = ?";
+        $statement = $this->pdo->prepare($sql);
+        $statement->bindValue(1, $stockTicker, PDO::PARAM_STR);
+        $statement->execute();
+        $result = $statement->fetchAll(PDO::FETCH_OBJ);
+        $stockId = $result[0]->id;
+
+        $sql = "INSERT IGNORE INTO portfolio_stocks (portfolio_stocks.portfolio_id, portfolio_stocks.stock_id) VALUES (?,?)";
+        $statement = $this->pdo->prepare($sql);
+        $statement->bindValue(1, $portfolioId, PDO::PARAM_INT);
+        $statement->bindValue(2, $stockId, PDO::PARAM_INT);
+        $statement->execute();
+
+    }
+
+    public function getPortfolio($userId)
+    {
+        $sql = "SELECT stocks.id, stocks.stock_name FROM stocks
+            LEFT JOIN portfolio_stocks ON portfolio_stocks.stock_id = stocks.id 
+            LEFT JOIN portfolios ON portfolios.id = portfolio_stocks.portfolio_id 
+            LEFT JOIN users ON users.id = portfolios.user_id
+            WHERE users.id = ?";
+
+        $statement = $this->pdo->prepare($sql);
+        $statement->bindValue(1, $userId, PDO::PARAM_INT);
+        $statement->execute();
+        $stocks = $statement->fetchAll(PDO::FETCH_OBJ);
+
+        return $stocks;
+    }
+
+
+
     public function removeStock($stockTicker) {
     	//removes a stock from the databse so that it will not be in the user’s portfolio during future
     }
@@ -45,10 +98,10 @@ class DBManager
 
         if (empty($user))
         {
-            return false;
+            return null;
         }
 
-        return true;
+        return $user[0]->id;
     }
 
 
