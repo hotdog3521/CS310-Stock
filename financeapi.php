@@ -1,6 +1,11 @@
 <?php
-
+ini_set('display_errors', 'on');
 $filepath = realpath (dirname(__FILE__));
+
+include($filepath.'/YahooFinanceApi/ApiClient.php');
+
+$client = new YahooFinanceApi\ApiClient();
+
 include($filepath.'/php_classes/APIManager.php');
 $mAPI = new APIManager();
 /*
@@ -10,6 +15,7 @@ print $myArray['price'];
 
 if($mAPI->isStock('GOOGLE')) print 1;
 else print 0;
+
 
 //Fetch basic data
 /*

@@ -25,8 +25,14 @@ class DBManager
         return $users;
     }
 
-    public function loginUser($email, $password)
-    {
+    public function addStock($stockTicker) {
+    	//adds a stock to the database so that it will be in the user’s portfolio during future sessions
+    }
+    public function removeStock($stockTicker) {
+    	//removes a stock from the databse so that it will not be in the user’s portfolio during future
+    }
+    public function logInAuthenticate($email, $password) {
+    	//Usage: this function will cross check the parameters passed in to the ones stored in the database.  return boolean
         $sql = "SELECT * FROM users
                 WHERE users.email = ?
                 AND users.password = ?";
@@ -37,9 +43,13 @@ class DBManager
         $statement->execute();
         $user = $statement->fetchAll(PDO::FETCH_OBJ);
 
-        return $user;
-    }
+        if (empty($user))
+        {
+            return false;
+        }
 
+        return true;
+    }
 
     // takes in a watchlist_id from a particular user
     public function getWatchlist($watchlist_id){
@@ -63,7 +73,7 @@ class DBManager
             $stock_id = $result[$i]->stock_id;
 
             // pull the corresponding stock info from stock table
-            $sql2 = "SELECT * FROM watchlist_stocks
+            $sql2 = "SELECT * FROM stocks
                     WHERE stocks.id = ?";
             $statement2 = $this->pdo->prepare($sql);
             $statement2->bindValue(1, $stock_id, PDO::PARAM_INT);
@@ -71,15 +81,63 @@ class DBManager
             $stock_result = $statement2->fetchAll(PDO::FETCH_OBJ);
 
             // create a new Stock Object, put it in the array
-            $stock = new Stock($stock_result[0]->company_name, $stock_result[0]->stock_name, 0, 0);
-            array_push($mStockList, $stock->getName(), $stock);
+            $stock = new Stock($stock_result[0]->company_name, $stock_result[0]->stock_name, 0, 0, $stock_id);
+            array_push($watchList, $stock->getName(), $stock);
         }
 
         return $watchList;
 
     }
 
-    public function addStock($stockTicker) {
+    public function getPortfolioList($portfolio_id){
+        $sql = "SELECT * FROM portfolio_stocks
+                WHERE portfolio_stocks.portfolio_id = ?";
+
+        $statement = $this->pdo->prepare($sql);
+        $statement->bindValue(1, $portfolio_id, PDO::PARAM_INT);
+        $statement->execute();
+
+        //result stores all the stock_ids in the watchlist
+        $result = $statement->fetchAll(PDO::FETCH_OBJ);
+
+        //initialize empty array
+        $portfolioList = array();
+
+        // iterate through every stock_id in the resulting array
+        for ($i = 0; $i < count($result); ++$i){
+
+            $stock_id = $result[$i]->stock_id;
+
+            // pull the corresponding stock info from stock table
+            $sql2 = "SELECT * FROM stocks
+                    WHERE stocks.id = ?";
+            $statement2 = $this->pdo->prepare($sql);
+            $statement2->bindValue(1, $stock_id, PDO::PARAM_INT);
+            $statement2->execute();
+            $stock_result = $statement2->fetchAll(PDO::FETCH_OBJ);
+
+            // create a new Stock Object, put it in the array
+            $stock = new Stock($stock_result[0]->company_name, $stock_result[0]->stock_name, 0, 0, $stock_id);
+            array_push($portfolioList, $stock->getName(), $stock);
+        }
+
+        return $portfolioList;
+    }
+
+    public function updateWatchList($watchlist_id, $new_watchlist){
+
+        // clear the watchlist_stock table of the user's old watchlist stocks
+        $sql = "DELETE FROM watchlist_stocks
+                WHERE watchlist_stocks.watchlist_id = ?";
+        $statement = $this->pdo->prepare($sql);
+        $statement -> bindValue(1, $watchlist_id, PDO::PARAM_INT);
+        $statement->execute();
+
+        // insert from the portfolio
+
+    }
+
+    public function addStock($stockTicker, $stock_name) {
     	//adds a stock to the database so that it will be in the user’s portfolio during future sessions
 
 
@@ -91,5 +149,4 @@ class DBManager
     	//Usage: this function will cross check the parameters passed in to the ones stored in the database.  return boolean
 
     }
-}
 ?>
