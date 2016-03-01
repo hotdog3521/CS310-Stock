@@ -150,7 +150,7 @@ class DBManager
 
     }
 
-    public funciton removeFromPortfolioList ($portfolio_id, $stock){
+    public function removeFromPortfolioList ($portfolio_id, $stock){
         // removes a stock from a portfolio list
 
         $sql = "DELETE FROM portfoio_stocks
@@ -161,9 +161,5 @@ class DBManager
         $statement->bindValue(2, $stock->getID(), PDO::PARAM_INT);
         $statement->execute();
     }
-
-    public function logInAuthenticate($username, $password) {
-    	//Usage: this function will cross check the parameters passed in to the ones stored in the database.  return boolean
-
-    }
+}
 ?>
