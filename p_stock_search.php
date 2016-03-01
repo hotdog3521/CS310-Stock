@@ -63,7 +63,8 @@ function makeJSON ($q, $startdate, $enddate, $props) {
 				// $arr[] = "{$comment}[$date,$close]";
 				$arr[] = "[$date,$close]";
 			} else if ($props == 'ohlc') {
-				$arr[] = "{$comment}[$date,$open,$high,$low,$close]";
+				// $arr[] = "{$comment}[$date,$open,$high,$low,$close]";
+				$arr[] = "[$date,$open,$high,$low,$close]";
 				//$arr[] = "{$comment}insert into stockquotes (datetime, open, high, low, close) values('$date',$open,$high,$low,$close)";
 			} else if ($props == 'ohlcv') {
 				$arr[] = "{$comment}[$date,$open,$high,$low,$close,$volume]";

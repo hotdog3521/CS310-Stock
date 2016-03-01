@@ -56,8 +56,36 @@ $portfolioStocks = $PM->getStockList();
      */
      function createChart() {
      	$('#container').highcharts('StockChart', {
-     		rangeSelector: {
-     			selected: 4
+     		xAxis: {
+	    		minRange: 1 * 24 * 3600 * 1000
+	    	},
+	        rangeSelector : {
+	        	allButtonsEnabled: true,
+	        	buttons: [{
+	        		type: 'day',
+	        		count: 1,
+	        		text: '1 day'
+	        	}, {
+	        		type: 'day',
+	        		count: 5,
+	        		text: '5 days'
+	        	}, {
+					type: 'month',
+					count: 1,
+					text: '1m'
+				}, {
+					type: 'month',
+					count: 3,
+					text: '3m'
+				}, {
+					type: 'month',
+					count: 6,
+					text: '6m'
+				}, {
+					type: 'all',
+					text: 'All'
+				}],
+	            selected : 4
      		},
      		yAxis: {
      			labels: {
