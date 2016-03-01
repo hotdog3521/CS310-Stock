@@ -126,7 +126,7 @@ class DBManager
             $stock_id = $result[$i]->stock_id;
 
             // pull the corresponding stock info from stock table
-            $sql2 = "SELECT * FROM watchlist_stocks
+            $sql2 = "SELECT * FROM stocks
                     WHERE stocks.id = ?";
             $statement2 = $this->pdo->prepare($sql);
             $statement2->bindValue(1, $stock_id, PDO::PARAM_INT);
@@ -134,12 +134,85 @@ class DBManager
             $stock_result = $statement2->fetchAll(PDO::FETCH_OBJ);
 
             // create a new Stock Object, put it in the array
-            $stock = new Stock($stock_result[0]->company_name, $stock_result[0]->stock_name, 0, 0);
-            array_push($mStockList, $stock->getName(), $stock);
+            $stock = new Stock($stock_result[0]->company_name, $stock_result[0]->stock_name, 0, 0, $stock_id);
+            array_push($watchList, $stock->getName(), $stock);
         }
 
         return $watchList;
 
+    }
+
+    public function getPortfolioList($portfolio_id){
+        $sql = "SELECT * FROM portfolio_stocks
+                WHERE portfolio_stocks.portfolio_id = ?";
+
+        $statement = $this->pdo->prepare($sql);
+        $statement->bindValue(1, $portfolio_id, PDO::PARAM_INT);
+        $statement->execute();
+
+        //result stores all the stock_ids in the watchlist
+        $result = $statement->fetchAll(PDO::FETCH_OBJ);
+
+        //initialize empty array
+        $portfolioList = array();
+
+        // iterate through every stock_id in the resulting array
+        for ($i = 0; $i < count($result); ++$i){
+
+            $stock_id = $result[$i]->stock_id;
+
+            // pull the corresponding stock info from stock table
+            $sql2 = "SELECT * FROM stocks
+                    WHERE stocks.id = ?";
+            $statement2 = $this->pdo->prepare($sql);
+            $statement2->bindValue(1, $stock_id, PDO::PARAM_INT);
+            $statement2->execute();
+            $stock_result = $statement2->fetchAll(PDO::FETCH_OBJ);
+
+            // create a new Stock Object, put it in the array
+            $stock = new Stock($stock_result[0]->company_name, $stock_result[0]->stock_name, 0, 0, $stock_id);
+            array_push($portfolioList, $stock->getName(), $stock);
+        }
+
+        return $portfolioList;
+    }
+
+    // takes in a watchlist ID and a stock Object
+    public function addToWatchList($watchlist_id, $stock){
+
+    }
+
+    /*
+    public function addStock($stockTicker, $stock_name) {
+    	//adds a stock to the database so that it will be in the user’s portfolio during future sessions
+
+
+    }
+    */
+    public function removeFromWatchList($watchlist_id, $stock) {
+    	//removes a stock from the databse so that it will not be in the user’s portfolio during future
+        
+
+        $sql = "DELETE FROM watchlist_stocks
+                WHERE watchlist_stocks.watchlist_id = ?
+                AND watchlist_stocks.stock_id = ?";
+        $statement = $this->pdo->prepare($sql);
+        $statement->bindValue(1, $watchlist_id, PDO::PARAM_INT);
+        $statement->bindValue(2, $stock->getID(), PDO::PARAM_INT);
+        $statement->execute();
+
+    }
+
+    public function removeFromPortfolioList ($portfolio_id, $stock){
+        // removes a stock from a portfolio list
+
+        $sql = "DELETE FROM portfoio_stocks
+                WHERE portfolio_stocks.portfolio_id = ?
+                AND portfolio_stocks.stock_id = ?";
+        $statement = $this ->pdo->prepare($sql);
+        $statement->bindValue(1, $portfolio_id, PDO::PARAM_INT);
+        $statement->bindValue(2, $stock->getID(), PDO::PARAM_INT);
+        $statement->execute();
     }
 }
 ?>

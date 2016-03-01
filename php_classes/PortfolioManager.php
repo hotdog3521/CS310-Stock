@@ -12,6 +12,8 @@ class PortfolioManager
     private $mDB; //DBManager
     private $mAPI; //APIManagers
     private $mPortfolio; //Portfolio
+    private $watchlist_id;
+    private $portfolio_id;
     private $mVisibleStocks = array(
 
     );
@@ -34,12 +36,6 @@ class PortfolioManager
     //     $this->mUsername = $username;
         
     //     // get the user specified in the database
-        
-
-
-
-
-
     //     // $this->loadPortfolio($email, $password);
     // }
 
@@ -58,11 +54,25 @@ class PortfolioManager
         // $tempWatchList = $this->mDB->getWatchList($watchlist_id); 
         // $tempProfileList = array();
 
+        // get the user info array from the email/password
+        $user = $this->mDB->login($email, $password);
+
+        // get the user's watchlist_id and portfolio_id
+        $this->watchlist_id = $user[0]->watchlist_id;
+        $this->portfolio_id = $user[0]->portfolio_id;
+
+        // load in the watchList and portfolioList from MySQL
+        $tempWatchList = $this->mDB->getWatchList($this->watchlist_id); 
+        $tempProfileList = $this->mDB->getPortfolioList($this->portfolio_id);
+
 
         // $this->mPortfolio = new Portfolio(null, 0, 0, null);
+        // create a new Portfolio and set it to the member variable
+        $this->mPortfolio = new Portfolio($tempWatchlist, 0, 0, $tempProfileList);
     }
     public function savePortfolio(){
         // should take the current Portfolio stored in $mPortfolio, and update the MySQL tables according to its info
+        $this->mDB->updateWatchList($this->watchlist_id, $mPortfolio->getWatchList());
     }
 
     public function getVisibleStocks($stockPrefix) {
