@@ -129,10 +129,11 @@ class DBManager
     }
 
 
-
+    /*
     public function removeStock($stockTicker) {
     	//removes a stock from the databse so that it will not be in the user’s portfolio during future
     }
+    */
     public function logInAuthenticate($email, $password) {
     	//Usage: this function will cross check the parameters passed in to the ones stored in the database.  return boolean
         $sql = "SELECT * FROM users
