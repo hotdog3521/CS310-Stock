@@ -45,11 +45,17 @@ class APIManager
     }
     public function getStocksStartingWith($stockPrefix) {
     	//Given a String input, this function returns an array of stocks with matching characters as the inputted string.
+        // query SQL server using LIKE
+        // return array of answers
+        $query = "select * from symbols WHERE name LIKE %'" . $stockPrefix . "'%";    
+        $array = executeQuery($query);
+        return $array;
     }
 
-    public function isStock($companyName){
+    public function isStock($companyName){ // returns 1 if stock exists, 0 otherwise
       //Given a compnay name in String form, this function queries the finance API and returns if the stock exists
-
+      $quote = $this->client->getStock($companyName); //Single stock
+       return $quote!=0;
     }
 
 
