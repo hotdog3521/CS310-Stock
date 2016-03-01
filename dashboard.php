@@ -9,8 +9,8 @@ $portfolioStocks = $PM->getStockList();
 
 ?>
 <div class="container">
-	<div class="col-md-4 com-sm-4 well" style="margin:100px auto; float:none;">
-		<h1>Portfolio</h1>
+	<h1 style="margin:100px auto 10px auto; float:none;">Portfolio</h1>
+	<div class="col-md-4 com-sm-4 well">
 		<?php if (isset($_SESSION['errors'])) : ?>
 			<p><?php echo $_SESSION['errors']; $_SESSION['errors'] = NULL; ?></p>
 		<?php endif ?>
@@ -39,26 +39,9 @@ $portfolioStocks = $PM->getStockList();
 	</div>
 </div>
 
-
-<div class="row">
-	<div class="container">
-		<div class="col-md-4 col-sm-3 well">
-		</div>
-	</div>
-	<div class="container">
-		<div class="col-md-4 col-sm-6 well">
-		</div>
-	</div>
-	<div class="container">
-		<div class="col-md-4 col-sm-3 well">
-		</div>
-	</div>
-</div>
-
-
 <div class="container">
+	<h1>Watchlist</h1>
 	<div class="col-md-12 well" id="container" style="width:100%; height:400px;">
-		
 	</div>
 </div>
 <script >
