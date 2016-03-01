@@ -9,6 +9,7 @@ class APIManager
 
     // property declaration
     private $client;
+    private $mDB;
     // method declaration
     public function __construct() {
         $this->client = new client();
@@ -47,8 +48,7 @@ class APIManager
     	//Given a String input, this function returns an array of stocks with matching characters as the inputted string.
         // query SQL server using LIKE
         // return array of answers
-        $query = "select * from symbols WHERE name LIKE %'" . $stockPrefix . "'%";    
-        $array = executeQuery($query);
+
         return $array;
     }
 

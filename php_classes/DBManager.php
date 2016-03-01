@@ -13,7 +13,7 @@ class DBManager
 
         $this->pdo = new PDO("mysql:host=$this->host;dbname=$this->dbname", $this->user, $this->pw);
     }
-    
+
     public function getUsers()
     {
         $sql = "SELECT * FROM users";
@@ -149,4 +149,14 @@ class DBManager
     	//Usage: this function will cross check the parameters passed in to the ones stored in the database.  return boolean
 
     }
+
+    public function searchStocks($stock_name){
+        // USage: this function will search the SQL database for stocks of similar names and return them in an array.
+        $sql = "SELECT * FROM symbols WHERE name LIKE %'" . $stock_name . "'%";
+        $statement = $this->pdo->prepare($sql);
+        $statement->execute();
+
+
+    }
+
 ?>
