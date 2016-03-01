@@ -1,7 +1,12 @@
 <?php
 require_once("header.php");
 require_once("navbar.php");
+require_once("php_classes/PortfolioManager.php");
 session_start();
+
+$PM = new PortfolioManager($_SESSION['userId']);
+$portfolioStocks = $PM->getStockList();
+
 ?>
 
 <div class="container">
@@ -21,11 +26,15 @@ session_start();
 		<div class="table-responsive table-bordered">
 			<table id="pSearch_Table" class="table">
 				<thead>
-					<th>Company Name</th>
 					<th>Stock Name</th>
-					<th>Opening Price</th>
-					<th>Add Stock</th>
 				</thead>
+				<tbody>
+					<?php foreach ($portfolioStocks as $stock) : ?>
+						<tr>
+							<td><?php echo $stock->stock_name ?></td>
+						</tr>
+					<?php endforeach ?>
+				</tbody>
 			</table>
 		</div>
 	</div>

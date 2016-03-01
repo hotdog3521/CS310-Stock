@@ -5,7 +5,13 @@ session_start();
 $startdate = date('M+j,+Y', mktime() - 7 * 365 * 24 * 3600);
 $enddate = date('M+j,+Y');
 $query = $_GET['stock'];
-$_SESSION['stock'] = $query;
+$_SESSION['symbol'] = $query;
+// $content = file_get_contents("http://finance.google.com/finance?q=CMG&output=json");
+// $js = substr($content, 5);
+// $js = substr($js, 0, -2);
+// $js = preg_replace('/[^(\x20-\x7F)]*/', '', $js);
+// $json = json_decode($js);
+// print_r($json);
 
 function makeJSON ($q, $startdate, $enddate, $props) {
 

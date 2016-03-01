@@ -2,6 +2,7 @@
 include 'Portfolio.php';
 include 'Stock.php';
 include 'DBManager.php';
+ini_set("display_errors", "on");
 
 
 class PortfolioManager
@@ -15,22 +16,32 @@ class PortfolioManager
 
     );
 
-    public function __construct($username, $API, $email, $password) {
-        //constructor
+    private $userId;
+    private $portfolioId;
 
+    public function __construct($id)
+    {
         $this->mDB = new DBManager();
-        $this->mAPI = $API;
-        $this->mUsername = $username;
-        
-        // get the user specified in the database
-        
-
-
-
-
-
-        $this->loadPortfolio($email, $password);
+        $this->userId = $id;
+        $this->portfolioId = $this->mDB->getPortfolioId($id);
     }
+
+    // public function __construct($username, $API, $email, $password) {
+    //     //constructor
+
+    //     $this->mDB = new DBManager();
+    //     $this->mAPI = $API;
+    //     $this->mUsername = $username;
+        
+    //     // get the user specified in the database
+        
+
+
+
+
+
+    //     // $this->loadPortfolio($email, $password);
+    // }
 
     // method declaration
     public function logout() {
@@ -40,15 +51,15 @@ class PortfolioManager
     public function loadPortfolio($email, $password){
         // access the corresponding information from MySQL to create a NEW portfolio
 
-        $user = $this->mDB->login($email, $password);
+        // $user = $this->mDB->loginAuthenticate($email, $password);
 
-        $watchlist_id = $user[0]->watchlist_id;
+        // $watchlist_id = $user[0]->watchlist_id;
 
-        $tempWatchList = $this->mDB->getWatchList($watchlist_id); 
-        $tempProfileList = array();
+        // $tempWatchList = $this->mDB->getWatchList($watchlist_id); 
+        // $tempProfileList = array();
 
 
-        $this->mPortfolio = new Portfolio(null, 0, 0, null);
+        // $this->mPortfolio = new Portfolio(null, 0, 0, null);
     }
     public function savePortfolio(){
         // should take the current Portfolio stored in $mPortfolio, and update the MySQL tables according to its info
@@ -81,12 +92,21 @@ class PortfolioManager
         // return Portfolio
         //calls the getStockList function inside the $mPortfolio;
 
-        return $this->mPortfolio->getStockList($user);
+        // return $this->mPortfolio->getStockList($user);
+
+        return $this->mDB->getPortfolio($this->userId);
+
+
+
     }
     public function addStock($stock) {
         //calls the addStock method in $mPortfolio
 
-        $this->mPortfolio->addStock($stock);
+        // $this->mPortfolio->addStock($stock);
+       
+        $this->mDB->addStock($stock, $this->portfolioId);
+
+
     }
     public function removeStock($stock) {
         //calls the removeStock method $mPortfolio
