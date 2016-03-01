@@ -3,7 +3,7 @@ require_once("header.php");
 require_once("navbar.php");
 session_start();
 ?>
-<div class="row"> 
+<div class="row">
 	<div class="container">
 		<div class="col-md-4 com-sm-4 well" style="margin:100px auto; float:none;">
 			<h1>Portfolio</h1>
@@ -32,27 +32,89 @@ session_start();
 	</div>
 	
 </div>
+</div>
+<div class="container">
+	<div class="row" >
+		
+			<div class="col-md-4 col-sm-4 well" style=" height:475px;">
+				<ul class="nav nav-tabs" role="tablist">
+				  <li class="active"><a href="#portfoliolist" role="tab" data-toggle="tab">Portfolio</a></li>
+				  <li><a href="#watchlist" role="tab" data-toggle="tab">Watch List</a></li>
+				</ul>
 
+				<!-- Tab panes -->
+				<div class="tab-content">
+				  <div class="tab-pane active" id="portfoliolist">
+				  		<div class="table-responsive table-bordered">
+							<table id="pList_Table" class="table" style="font-size: 10px">
+								<thead>
+									<th>Ticker Symbol</th>
+									<th>Quantity</th>
+									<th>Visibility</th>
+								</thead>
+							</table>
+						</div>
+				  </div>
+				  <div class="tab-pane" id="watchlist">
+				  	<div class="table-responsive table-bordered">
+							<table id="wList_Table" class="table" style="font-size: 10px">
+								<thead>
+									<th>Ticker Symbol</th>
+									<th>Visibility</th>
+									<th>BUTTON</th>
+								</thead>
+							</table>
+						</div>
+				  </div>
+				</div>
+			</div>
+		
+			<div class="col-md-8 col-sm-8 well" style=" height:475px;">
+				<ul class="nav nav-tabs" role="tablist">
+				  <li class="active"><a href="#portfoliograph" role="tab" data-toggle="tab">
+				 	 Portfolio
+				  </a>
+				  </li>
+				  <li><a href="#watchlistgraph" role="tab" data-toggle="tab">
+				  	Watchlist
+				  </a>
+				  </li>
+				</ul>
 
-<div class="row">
-	<div class="container">
-		<div class="col-md-4 col-sm-3 well">
-		</div>
-	</div>
-	<div class="container">
-		<div class="col-md-4 col-sm-6 well">
-		</div>
-	</div>
-	<div class="container">
-		<div class="col-md-4 col-sm-3 well">
-		</div>
+				<!-- Tab panes -->
+				<div class="tab-content">
+				  <div class="tab-pane active" id="portfoliograph">
+				  	<div id="pGraph"></div>
+				  </div>
+				  <div class="tab-pane" id="watchlistgraph">
+				 	<div id="wGraph"></div>
+				  </div>
+				</div>
+			</div>
+		
+		
 	</div>
 </div>
 
-
 <div class="container">
-	<div class="col-md-12 well" id="container" style="width:100%; height:400px;">
-		
+	<div class="row">
+		<div class="container col-m-4 col-sm-4 well">
+			<form>
+			  <div class="form-group">
+			    <label for="TickerSymbolInput">Ticker Symbol</label>
+			    <input type="text" class="form-control" id="tickerSymbolTrade" placeholder="Ticker Symbol">
+			  </div>
+			  <div class="form-group">
+			    <label for="QuantityInput">Quantity</label>
+			    <input type="numeric" min="0" class="form-control" id="quantityTrade" placeholder="Quantity">
+			  </div>
+			  <button type="submit" id="buyButton" class="btn btn-primary col-m-6 col-sm-6">Buy</button>
+			  <button type="submit" id="sellButton" class="btn btn-success col-m-6 col-sm-6">Sell</button>
+			</form>
+		</div>
+		<div class="container col-m-8 col-sm-8 well">
+
+		</div>
 	</div>
 </div>
 <script >
@@ -66,7 +128,7 @@ session_start();
      * @returns {undefined}
      */
      function createChart() {
-     	$('#container').highcharts('StockChart', {
+     	$('#pGraph').highcharts('StockChart', {
      		rangeSelector: {
      			selected: 4
      		},
@@ -111,22 +173,6 @@ session_start();
      });
  });
 
-/*var chart1; // globally available
-$(function() {
-      chart1 = new Highcharts.StockChart({
-         chart: {
-            renderTo: 'container'
-         },
-         rangeSelector: {
-            selected: 1
-         },
-         series: [{
-            name: 'USD to EUR',
-            data: data // predefined JavaScript array
-         }]
-      });
-   });
-   */
 </script>
 
 
