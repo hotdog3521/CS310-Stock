@@ -15,7 +15,7 @@ class DBManager
 
         $this->pdo = new PDO("mysql:host=$this->host;dbname=$this->dbname", $this->user, $this->pw);
     }
-    
+
     public function getUsers()
     {
         $sql = "SELECT * FROM users";
@@ -152,8 +152,20 @@ class DBManager
 
         return $user[0]->id;
     }
-
     /*
+
+
+    public function updateWatchList($watchlist_id, $new_watchlist){
+
+        // clear the watchlist_stock table of the user's old watchlist stocks
+        $sql = "DELETE FROM watchlist_stocks
+                WHERE watchlist_stocks.watchlist_id = ?";
+        $statement = $this->pdo->prepare($sql);
+        $statement -> bindValue(1, $watchlist_id, PDO::PARAM_INT);
+        $statement->execute();
+      }
+
+
     // takes in a watchlist_id from a particular user
     public function getWatchlist($watchlist_id){
 
@@ -235,7 +247,7 @@ class DBManager
 
     public function removeFromWatchList($watchlist_id, $stock) {
     	//removes a stock from the databse so that it will not be in the user’s portfolio during future
-        
+
 
         $sql = "DELETE FROM watchlist_stocks
                 WHERE watchlist_stocks.watchlist_id = ?
@@ -258,5 +270,18 @@ class DBManager
         $statement->bindValue(2, $stock->getID(), PDO::PARAM_INT);
         $statement->execute();
     }
-}
+
+    public function searchStocks($stock_name){
+        // USage: this function will search the SQL database for stocks of similar names and return them in an array.
+        $sql = $this->pdo->prepare("SELECT * FROM symbols WHERE symbol LIKE '%".$stock_name."%'");
+        $sql->execute();
+
+        $result = $sql->fetchAll(PDO::FETCH_OBJ);
+
+
+        return $result;
+
+    }
+  }
+
 ?>
