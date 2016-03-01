@@ -146,7 +146,7 @@ session_start();
 	<div class="row">
 
 		<!-- START section is for the Stock trader UI -->
-		<div class="container col-m-4 col-sm-4 well">
+		<div class="container col-m-4 col-sm-4 well" style="height: 225px">
 			<form>
 			  <div class="form-group">
 			    <label for="TickerSymbolInput">Ticker Symbol</label>
@@ -154,7 +154,7 @@ session_start();
 			  </div>
 			  <div class="form-group">
 			    <label for="QuantityInput">Quantity</label>
-			    <input type="numeric" min="0" class="form-control" id="quantityTrade" placeholder="Quantity">
+			    <input type="number" min="0" class="form-control" id="quantityTrade" placeholder="Quantity">
 			  </div>
 			  <button type="submit" id="buyButton" class="btn btn-primary col-m-6 col-sm-6">Buy</button>
 			  <button type="submit" id="sellButton" class="btn btn-success col-m-6 col-sm-6">Sell</button>
@@ -163,8 +163,47 @@ session_start();
 		<!-- END section is for the Stock trader UI -->
 		
 		<!-- START section is for the Stock Details UI -->
-		<div class="container col-m-8 col-sm-8 well">
-
+		<div class="container col-m-8 col-sm-8 well" style="height: 225px">
+			<div class="table-responsive">
+				<table id="StockDetails_Table" class="table table-striped input-m">
+					<thead>
+						<th>Ticker Symbol</th>
+						<th></th>
+					</thead>
+					<tbody>
+						<tr>
+							<td>
+								Company Name: 
+							</td>
+							<td>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								Ticker Symbol:
+							</td>
+							<td>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								Opening Price:
+							</td>
+							<td>
+								Closing Price:
+							</td>
+						</tr>
+						<tr>
+							<td>
+								Quantity Owned:
+							</td>
+							<td>
+								Percent Changed
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
 		</div>
 		<!-- END section is for the Stock Detail UI -->
 	</div>
