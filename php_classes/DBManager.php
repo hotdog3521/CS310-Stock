@@ -139,6 +139,27 @@ class DBManager
     public function removeFromWatchList($watchlist_id, $stock) {
     	//removes a stock from the databse so that it will not be in the user’s portfolio during future
         
+
+        $sql = "DELETE FROM watchlist_stocks
+                WHERE watchlist_stocks.watchlist_id = ?
+                AND watchlist_stocks.stock_id = ?";
+        $statement = $this->pdo->prepare($sql);
+        $statement->bindValue(1, $watchlist_id, PDO::PARAM_INT);
+        $statement->bindValue(2, $stock->getID(), PDO::PARAM_INT);
+        $statement->execute();
+
+    }
+
+    public funciton removeFromPortfolioList ($portfolio_id, $stock){
+        // removes a stock from a portfolio list
+
+        $sql = "DELETE FROM portfoio_stocks
+                WHERE portfolio_stocks.portfolio_id = ?
+                AND portfolio_stocks.stock_id = ?";
+        $statement = $this ->pdo->prepare($sql);
+        $statement->bindValue(1, $portfolio_id, PDO::PARAM_INT);
+        $statement->bindValue(2, $stock->getID(), PDO::PARAM_INT);
+        $statement->execute();
     }
 
     public function logInAuthenticate($username, $password) {
