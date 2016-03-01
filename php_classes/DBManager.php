@@ -81,7 +81,7 @@ class DBManager
             $stock_result = $statement2->fetchAll(PDO::FETCH_OBJ);
 
             // create a new Stock Object, put it in the array
-            $stock = new Stock($stock_result[0]->company_name, $stock_result[0]->stock_name, 0, 0);
+            $stock = new Stock($stock_result[0]->company_name, $stock_result[0]->stock_name, 0, 0, $stock_id);
             array_push($watchList, $stock->getName(), $stock);
         }
 
@@ -117,7 +117,7 @@ class DBManager
             $stock_result = $statement2->fetchAll(PDO::FETCH_OBJ);
 
             // create a new Stock Object, put it in the array
-            $stock = new Stock($stock_result[0]->company_name, $stock_result[0]->stock_name, 0, 0);
+            $stock = new Stock($stock_result[0]->company_name, $stock_result[0]->stock_name, 0, 0, $stock_id);
             array_push($portfolioList, $stock->getName(), $stock);
         }
 
