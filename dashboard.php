@@ -11,6 +11,9 @@ $watchlistStocks = $PM->getWatchList();
 $accountBalance = $PM->getBalance();
 
 $db = new DBManager();
+
+date_default_timezone_set('US/Eastern');
+
 ?>
 
 <script src="jquery-1.12.0.min.js"></script>
@@ -53,7 +56,14 @@ $db = new DBManager();
 
 <!-- START section for search widget UI-->
 <div class="container">
-	<h1 style="margin:100px auto 10px auto; float:none;">Portfolio</h1>
+	<div class="row" style="margin:100px auto 10px auto; float:none;">
+		<div class="col-md-6" style="display: inline-block;">
+			<h1 >Portfolio</h1>
+		</div>
+		<div class="col-md-6" style="display: inline-block; margin-left: 200px;">
+			<h3>US/Eastern Time: <?php echo date('h:i A'); ?></h3>
+		</div>
+	</div>
 	<div class="col-md-8 well">
 		<div class="row">
 			<div class="col-md-4" style="display: inline-block;">
