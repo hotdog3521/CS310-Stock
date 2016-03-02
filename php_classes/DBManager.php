@@ -103,7 +103,7 @@ class DBManager
     // adds a stock to the database that will be in the user's watchlist during future sessions
     public function addWatchListStock($stockTicker, $watchListId) {
 
-        $sql = "INSERT IGNORE INTO stocks (stocks.stock_name, stocks.price) VALUES (?)";
+        $sql = "INSERT IGNORE INTO stocks (stocks.stock_name, stocks.price) VALUES (?,?)";
         $statement = $this->pdo->prepare($sql);
         $statement->bindValue(1, $stockTicker, PDO::PARAM_STR);
         $statement->bindValue(2, 100, PDO::PARAM_INT);
@@ -117,7 +117,7 @@ class DBManager
         $result = $statement->fetchAll(PDO::FETCH_OBJ);
         $stockId = $result[0]->id;
 
-        $sql = "INSERT IGNORE INTO watchlist_stocks (watchlist_stocks.watchlist_id, watchlist_stocks.stock_id) VALUES (?,?)";
+        $sql = "INSERT INTO watchlist_stocks (watchlist_stocks.watchlist_id, watchlist_stocks.stock_id) VALUES (?,?)";
         $statement = $this->pdo->prepare($sql);
         $statement->bindValue(1, $watchListId, PDO::PARAM_INT);
         $statement->bindValue(2, $stockId, PDO::PARAM_INT);
