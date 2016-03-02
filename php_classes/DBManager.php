@@ -40,14 +40,14 @@ class DBManager
     }
 
     public function getWatchListId($userID){
-        $sql = "SELECT * FROM watchlists WHERE watchlists.user_id = ?";
+        // $sql = "SELECT * FROM watchlists WHERE watchlists.user_id = ?";
 
-        $statement = $this->pdo->prepare($sql);
-        $statement->bindValue(1, $userId, PDO::PARAM_INT);
-        $statement->execute();
-        $wID = $statement->fetchAll(PDO::FETCH_OBJ);
+        // $statement = $this->pdo->prepare($sql);
+        // $statement->bindValue(1, $userId, PDO::PARAM_INT);
+        // $statement->execute();
+        // $wID = $statement->fetchAll(PDO::FETCH_OBJ);
 
-        return $wID[0]->id;
+        // return $wID[0]->id;
     }
 
     public function addStock($stockTicker, $portfolioId) {
@@ -129,10 +129,11 @@ class DBManager
     }
 
 
-
+    /*
     public function removeStock($stockTicker) {
     	//removes a stock from the databse so that it will not be in the user’s portfolio during future
     }
+    */
     public function logInAuthenticate($email, $password) {
     	//Usage: this function will cross check the parameters passed in to the ones stored in the database.  return boolean
         $sql = "SELECT * FROM users

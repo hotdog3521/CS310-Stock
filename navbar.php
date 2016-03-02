@@ -11,8 +11,7 @@
 		</div>
 		<div class="collapse navbar-collapse" id="navbar">
 			<ul class="nav navbar-nav">
-				<li><a href="dashboard.php">Portfolio</a></li>
-				<li><a href="watchlist.php">Watchlist</a></li>
+				<li><a href="dashboard.php">Dashboard</a></li>
 				<li><a href="user_manual.php">User Manual</a></li>
 			</ul>
 			<ul class="nav navbar-nav navbar-right" style="margin-right:20px;">
