@@ -2,6 +2,7 @@
 require_once("header.php");
 require_once("navbar.php");
 require_once("php_classes/PortfolioManager.php");
+require_once("php_classes/DBManager.php");
 session_start();
 
 $PM = new PortfolioManager($_SESSION['userId']);
@@ -9,7 +10,45 @@ $portfolioStocks = $PM->getStockList();
 $watchlistStocks = $PM->getWatchList();
 $accountBalance = $PM->getBalance();
 
+$db = new DBManager();
 ?>
+
+<script src="jquery-1.12.0.min.js"></script>
+
+<link rel="stylesheet" href="css/style.css" />
+<script type="text/javascript">
+	
+	function autocomplete()
+	{
+		var min_length = 0;
+		var keyword = $("#search_bar").val();
+		if (keyword.length >= min_length)
+		{
+			$.ajax({
+				url: 'ajax_autocomplete.php',
+				type: 'POST',
+				data: {keyword:keyword},
+				success: function(data)
+				{
+					$("#search_bar_list").show();
+					$("#search_bar_list").html(data);
+				}
+			});
+		}
+		else
+		{
+			$("#search_bar_list").hide();
+		}
+	}
+
+
+	function set_item(item)
+	{
+		$("#search_bar").val(item);
+		$("#search_bar_list").hide();
+	}
+
+</script>
 
 
 <!-- START section for search widget UI-->
@@ -24,7 +63,9 @@ $accountBalance = $PM->getBalance();
 				<form action="p_stock_search.php" method="get" id="portfolio_form" class="form-inline">
 					<div class="form-group">
 						<label class="control-label" for="stock">Stock Ticker: </label>
-						<input class="form-control" type="text" name="stock">
+						<div class="input_container">
+							<input id="search_bar" class="form-control" type="text" name="stock" onkeyup="autocomplete()">
+							<ul id="search_bar_list"></ul>
 					</div>
 					<button class="btn btn-success" type="submit">Search</button>
 				</form>
