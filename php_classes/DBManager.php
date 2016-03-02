@@ -27,6 +27,18 @@ class DBManager
         return $users;
     }
 
+    public function getAccountBalance($userId)
+    {
+        $sql = "SELECT users.account_balance FROM users WHERE users.id = ?";
+        $statement = $this->pdo->prepare($sql);
+        $statement->bindValue(1, $userId, PDO::PARAM_INT);
+        $statement->execute();
+        $balance = $statement->fetchAll(PDO::FETCH_OBJ);
+
+        return $balance[0]->account_balance;
+
+    }
+
     public function getPortfolioId($userId)
     {
         $sql = "SELECT * FROM portfolios WHERE portfolios.user_id = ?";
@@ -51,12 +63,13 @@ class DBManager
         return $wID[0]->id;
     }
 
-    public function addStock($stockTicker, $portfolioId) {
+    public function addStock($stockTicker, $portfolioId, $userId) {
     	//adds a stock to the database so that it will be in the user’s portfolio during future sessions
 
-        $sql = "INSERT IGNORE INTO stocks (stocks.stock_name) VALUES (?)";
+        $sql = "INSERT IGNORE INTO stocks (stocks.stock_name, stocks.price) VALUES (?)";
         $statement = $this->pdo->prepare($sql);
         $statement->bindValue(1, $stockTicker, PDO::PARAM_STR);
+        $statement->bindValue(2, 100, PDO::PARAM_INT);
         $statement->execute();
 
 
@@ -73,13 +86,19 @@ class DBManager
         $statement->bindValue(2, $stockId, PDO::PARAM_INT);
         $statement->execute();
 
+        $sql = "UPDATE users SET users.account_balance = users.account_balance - 100 WHERE users.id = ?";
+        $statement = $this->pdo->prepare($sql);
+        $statement->bindValue(1, $userId, PDO::PARAM_INT);
+        $statement->execute();
+
     }
     public function addWatchListStock($stockTicker, $watchListId) {
         // adds a stock tot he database that will be in the user's watchlist during future sessions
 
-        $sql = "INSERT IGNORE INTO stocks (stocks.stock_name) VALUES (?)";
+        $sql = "INSERT IGNORE INTO stocks (stocks.stock_name, stocks.price) VALUES (?)";
         $statement = $this->pdo->prepare($sql);
         $statement->bindValue(1, $stockTicker, PDO::PARAM_STR);
+        $statement->bindValue(2, 100, PDO::PARAM_INT);
         $statement->execute();
 
 
@@ -113,7 +132,7 @@ class DBManager
         return $stocks;
     }
 
-    public function getWatchList($userID)
+    public function getWatchList($userId)
     {
         $sql = "SELECT stocks.id, stocks.stock_name FROM stocks
             LEFT JOIN watchlist_stocks ON watchlist_stocks.stock_id = stocks.id 
