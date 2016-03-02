@@ -79,6 +79,7 @@ $(function()
 			</form>
 		</div>
 	</div>
+	<div id="fc"></div>
 
 </div>
 

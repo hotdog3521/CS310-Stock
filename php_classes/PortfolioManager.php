@@ -56,7 +56,9 @@ class PortfolioManager
         //return double
         //returns portfolio’s net balance
 
-        return $this->mPortfolio->getBalance();
+        // return $this->mPortfolio->getBalance();
+
+        return $this->mDB->getAccountBalance($this->userId);
     }
     public function getNetPortfolioValue(){
         //returns portfolio’s net value
@@ -74,11 +76,11 @@ class PortfolioManager
     public function addStock($stock) {
         //calls the addStock method in $mPortfolio
 
-        $this->mPortfolio->addStock($stock);
+        // $this->mPortfolio->addStock($stock);
 
         // do the same for the database
        
-        $this->mDB->addStock($stock, $this->portfolioId);
+        $this->mDB->addStock($stock, $this->portfolioId, $this->userId);
 
 
     }
@@ -93,7 +95,7 @@ class PortfolioManager
     public function getWatchList() {
         //calls the getWatchList function in $mPortfolio 
 
-        return $this->mDB->getWatchList($this->userID);
+        return $this->mDB->getWatchList($this->userId);
     }
     public function addWatchListStock($stock) {
         //calls the addWatchListStock function in $mPortfolio
@@ -160,6 +162,7 @@ class PortfolioManager
 
         $portfolioStocks = $this->mDB->getPortfolio($userId);
         $watchlistStocks = $this->mDB->getWatchList($userId);
+
         $balance = $this->mDB->getBalance($userId);
 
         $this->mPortfolio = new Portfolio($watchlistStocks, $balance, 0, $portfolioStocks);

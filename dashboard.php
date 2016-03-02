@@ -6,6 +6,8 @@ session_start();
 
 $PM = new PortfolioManager($_SESSION['userId']);
 $portfolioStocks = $PM->getStockList();
+$watchlistStocks = $PM->getWatchList();
+$accountBalance = $PM->getBalance();
 
 ?>
 
@@ -13,18 +15,25 @@ $portfolioStocks = $PM->getStockList();
 <!-- START section for search widget UI-->
 <div class="container">
 	<h1 style="margin:100px auto 10px auto; float:none;">Portfolio</h1>
-	<div class="col-md-4 com-sm-4 well">
-		<?php if (isset($_SESSION['errors'])) : ?>
-			<p><?php echo $_SESSION['errors']; $_SESSION['errors'] = NULL; ?></p>
-		<?php endif ?>
-		<form action="p_stock_search.php" method="get" id="portfolio_form" class="form-inline">
-			<div class="form-group">
-				<label class="control-label" for="stock">Stock Ticker: </label>
-				<input class="form-control" type="text" name="stock">
+	<div class="col-md-8 well">
+		<div class="row">
+			<div class="col-md-4" style="display: inline-block;">
+				<?php if (isset($_SESSION['errors'])) : ?>
+					<p><?php echo $_SESSION['errors']; $_SESSION['errors'] = NULL; ?></p>
+				<?php endif ?>
+				<form action="p_stock_search.php" method="get" id="portfolio_form" class="form-inline">
+					<div class="form-group">
+						<label class="control-label" for="stock">Stock Ticker: </label>
+						<input class="form-control" type="text" name="stock">
+					</div>
+					<button class="btn btn-success" type="submit">Search</button>
+				</form>
 			</div>
-			<button class="btn btn-success" type="submit">Search</button>
-		</form>
-		<br>
+			<div class="col-md-4" style="display: inline-block;">
+				<h4>Account Balance: $<?php echo $accountBalance ?></h4>
+			</div>
+		</div>
+		<br>		
 		<div class="table-responsive table-bordered">
 			<table id="pSearch_Table" class="table">
 				<thead>
@@ -39,7 +48,6 @@ $portfolioStocks = $PM->getStockList();
 				</tbody>
 			</table>
 		</div>
-
 	</div>
 </div>
 <!-- END section for search widget UI -->
@@ -64,6 +72,13 @@ $portfolioStocks = $PM->getStockList();
 									<th>Quantity</th>
 									<th>Visibility</th>
 								</thead>
+								<tbody>
+									<?php foreach ($portfolioStocks as $stock) : ?>
+										<tr>
+											<td><?php echo $stock->stock_name ?></td>
+										</tr>
+									<?php endforeach ?>
+								</tbody>
 							</table>
 						</div>
 				  </div>
@@ -75,6 +90,13 @@ $portfolioStocks = $PM->getStockList();
 									<th>Visibility</th>
 									<th>BUTTON</th>
 								</thead>
+								<tbody>
+									<?php foreach ($watchlistStocks as $stock) : ?>
+										<tr>
+											<td><?php echo $stock->stock_name ?></td>
+										</tr>
+									<?php endforeach ?>
+								</tbody>
 							</table>
 						</div>
 				  </div>
