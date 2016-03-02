@@ -3,20 +3,22 @@
 $filepath = realpath (dirname(__FILE__));
 include(dirname($filepath) . '/API/client.php');
 
-
 class APIManager
 {
 
     // property declaration
     private $client;
     private $mDB;
-    // method declaration
+    
+    // constructor for creating a new API Manager
     public function __construct() {
         $this->client = new client();
 
     }
+
+    //Given a company name in String form, this function queries the finance API and returns the stock’s information
+
     public function getStockInfo($companyName) {
-    	//Given a company name in String form, this function queries the finance API and returns the stock’s information
      $quote = $this->client->getStock($companyName); //Single stock
       return $quote;
       // json format:
@@ -44,16 +46,18 @@ class APIManager
 
 
     }
-    public function getStocksStartingWith($stockPrefix) {
-    	//Given a String input, this function returns an array of stocks with matching characters as the inputted string.
+
+    //Given a String input, this function returns an array of stocks with matching characters as the inputted string.
         // query SQL server using LIKE
         // return array of answers
-
+    public function getStocksStartingWith($stockPrefix) {
+    
         return $array;
     }
 
-    public function isStock($companyName){ // returns 1 if stock exists, 0 otherwise
-      //Given a compnay name in String form, this function queries the finance API and returns if the stock exists
+    //Given a compnay name in String form, this function queries the finance API and returns if the stock exists
+    // returns 1 if stock exists, 0 otherwise
+    public function isStock($companyName){ 
       $quote = $this->client->getStock($companyName); //Single stock
        return $quote!=0;
     }

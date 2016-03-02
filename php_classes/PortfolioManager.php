@@ -4,22 +4,19 @@ include 'Stock.php';
 include 'DBManager.php';
 ini_set("display_errors", "on");
 
-
 class PortfolioManager
 {
     // property declaration
-    private $mUsername;
-    private $mDB; //DBManager
-    private $mAPI; //APIManagers
-    private $mPortfolio; //Portfolio
-    private $mVisibleStocks = array(
 
-    );
-
+    private $mDB;
+    private $mAPI; 
+    private $mPortfolio; 
+    private $mVisibleStocks = array();
     private $userId;
     private $portfolioId;
     private $watchListId;
 
+    // constructor that takes in a user ID and uses the database to populate the rest of the portfolio Data
     public function __construct($id)
     {
         $this->mDB = new DBManager();
@@ -27,63 +24,47 @@ class PortfolioManager
         $this->portfolioId = $this->mDB->getPortfolioId($id);
         $this->watchListId = $this->mDB->getWatchListId($id);
 
-        // $this->mAPI = new APIManager();
     }
 
-    // method declaration
-    public function logout() {
-        //returns true or false depending on the status of the logout process
-        //boolean function
-    }
-
-    public function savePortfolio(){
-        // should take the current Portfolio stored in $mPortfolio, and update the MySQL tables according to its info
-    }
-
+    //return array of stock mVisibleStocks
     public function getVisibleStocks($stockPrefix) {
-        //return array of stock mVisibleStocks
-        //returns the list of visible stocks for the mainGraph class to use
 
         return $this->mVisibleStocks;
     }
+
+    // set the balance of the portfolio
     public function setBalance($balance) {
-        //return boolean
-        //calls the portfolio’s setBalance funciton.
 
         $this->mPortfolio->setBalance($balance);
     }
-    public function getBalance() {
-        //return double
-        //returns portfolio’s net balance
 
-        // return $this->mPortfolio->getBalance();
+    // return the balance of the portfolio
+    public function getBalance() {
 
         return $this->mDB->getAccountBalance($this->userId);
     }
+
+    //returns portfolio’s net value
     public function getNetPortfolioValue(){
-        //returns portfolio’s net value
 
         return $this->mPortfolio->getNetPortfolioValue();
     }
-    public function getStockList() {
-        // return Portfolio
-        //calls the getStockList function inside the $mPortfolio;
 
-        // return $this->mPortfolio->getStockList($user);
+    // return the Portfolio List
+    public function getStockList() {
 
         return $this->mDB->getPortfolio($this->userId);
     }
+
+    //calls the addStock method in $mPortfolio
     public function addStock($stock) {
-        //calls the addStock method in $mPortfolio
-
-        // $this->mPortfolio->addStock($stock);
-
-        // do the same for the database
        
         $this->mDB->addStock($stock, $this->portfolioId, $this->userId);
 
 
     }
+
+    // removes a stock from Portfolio List in Portfolio
     public function removeStock($stock) {
         //calls the removeStock method $mPortfolio
 
@@ -92,26 +73,37 @@ class PortfolioManager
         // update the database as well
         $this->mDB->removeFromPortfolioList($this->portfolio_id, $stock);
     }
+
+    // returns the Watchlist in Portfolio
     public function getWatchList() {
         //calls the getWatchList function in $mPortfolio 
 
         return $this->mDB->getWatchList($this->userId);
     }
+
+    // adds a stock from the Watchlist in Portfolio
     public function addWatchListStock($stock) {
         //calls the addWatchListStock function in $mPortfolio
-
-        // $this->mPortfolio->addToWatchList($stock);
 
         // update the database as well
 
         $this->mDB->addWatchListStock($stock, $this->watchListId);
     }
+
+    // remove a stock from the Watchlist in Portfolio
     public function removeFromWatchList($stock) {
         //calls the removeFromWatchList function in $mPortfolio
         $this->mPortfolio->removeFromWatchList($stock);
         // update the database as well
         $this->mDB->removeFromWatchList($this->watchListId, $stock);
     }
+
+    // should take the current Portfolio stored in $mPortfolio, and update the MySQL tables according to its info
+    public function savePortfolio(){
+        
+    }
+
+    // upload a CSV to be a new portfolio
     public function uploadCSV($filePath) {
 
         //structure of csv 
