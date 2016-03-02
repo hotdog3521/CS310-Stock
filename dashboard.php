@@ -14,13 +14,13 @@ $db = new DBManager();
 ?>
 
 <script src="jquery-1.12.0.min.js"></script>
+<link rel="stylesheet" href="style.css" />
 
-<link rel="stylesheet" href="css/style.css" />
 <script type="text/javascript">
 	
-	function autocomplete()
+	function autocomplet()
 	{
-		var min_length = 0;
+		var min_length = 1;
 		var keyword = $("#search_bar").val();
 		if (keyword.length >= min_length)
 		{
@@ -60,15 +60,20 @@ $db = new DBManager();
 				<?php if (isset($_SESSION['errors'])) : ?>
 					<p><?php echo $_SESSION['errors']; $_SESSION['errors'] = NULL; ?></p>
 				<?php endif ?>
-				<form action="p_stock_search.php" method="get" id="portfolio_form" class="form-inline">
-					<div class="form-group">
-						<label class="control-label" for="stock">Stock Ticker: </label>
-						<div class="input_container">
-							<input id="search_bar" class="form-control" type="text" name="stock" onkeyup="autocomplete()">
-							<ul id="search_bar_list"></ul>
-					</div>
-					<button class="btn btn-success" type="submit">Search</button>
-				</form>
+		        <div class="content">
+					<form action="p_stock_search.php" method="get" id="portfolio_form" class="form-inline">
+						<div class="form-group">
+							<div style="display: inline-block;">
+								<label class="control-label" for="stock">Stock Ticker: </label>
+							</div>
+							<div class="input_container" style="display: inline-block;">
+								<input id="search_bar" class="form-control" type="text" name="stock" onkeyup="autocomplet()" autocomplete="off">
+								<ul id="search_bar_list"></ul>
+							</div>
+						</div>
+						<button class="btn btn-success" type="submit">Search</button>
+					</form>
+				</div>
 			</div>
 			<div class="col-md-4" style="display: inline-block;">
 				<h4>Account Balance: $<?php echo $accountBalance ?></h4>

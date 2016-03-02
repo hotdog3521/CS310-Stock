@@ -228,7 +228,6 @@ class DBManager
 
         // USage: this function will search the SQL database for stocks of similar names and return them in an array.
         $sql = $this->pdo->prepare("SELECT * FROM symbols WHERE symbol LIKE '%".$stock_name."%' LIMIT 5");
-        $sql = $this->pdo->prepare("SELECT * FROM symbols WHERE symbol LIKE '%".$stock_name."%'");
         $sql->execute();
 
         $result = $sql->fetchAll(PDO::FETCH_OBJ);
