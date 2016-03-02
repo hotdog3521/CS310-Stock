@@ -158,10 +158,11 @@ class PortfolioManager
     // function to load the portfolio from the database to a new Portfolio object
     public function loadPortfolio(){
 
-        $portfolioStocks = $this->mDB->getPortfolio($userID);
-        $watchlistStocks = $this->mDB->getWatchList($userID);
+        $portfolioStocks = $this->mDB->getPortfolio($userId);
+        $watchlistStocks = $this->mDB->getWatchList($userId);
+        $balance = $this->mDB->getBalance($userId);
 
-        $this->mPortfolio = new Portfolio($watchlistStocks, 0, 0, $portfolioStocks);
+        $this->mPortfolio = new Portfolio($watchlistStocks, $balance, 0, $portfolioStocks);
     }
 
 
