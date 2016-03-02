@@ -44,8 +44,6 @@ class Trader
 			//confirmation popup function (Front end JS)
 			//sell stock
 
-    	}else {
-
     	} else {
     		//error popup function
     		return;
