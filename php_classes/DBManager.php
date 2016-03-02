@@ -39,15 +39,16 @@ class DBManager
         return $pID[0]->id;
     }
 
-    public function getWatchListId($userID){
-        // $sql = "SELECT * FROM watchlists WHERE watchlists.user_id = ?";
+    public function getWatchListId($userId)
+    {
+        $sql = "SELECT * FROM watchlists WHERE watchlists.user_id = ?";
 
-        // $statement = $this->pdo->prepare($sql);
-        // $statement->bindValue(1, $userId, PDO::PARAM_INT);
-        // $statement->execute();
-        // $wID = $statement->fetchAll(PDO::FETCH_OBJ);
+        $statement = $this->pdo->prepare($sql);
+        $statement->bindValue(1, $userId, PDO::PARAM_INT);
+        $statement->execute();
+        $wID = $statement->fetchAll(PDO::FETCH_OBJ);
 
-        // return $wID[0]->id;
+        return $wID[0]->id;
     }
 
     public function addStock($stockTicker, $portfolioId) {
@@ -89,7 +90,7 @@ class DBManager
         $result = $statement->fetchAll(PDO::FETCH_OBJ);
         $stockId = $result[0]->id;
 
-        $sql = "INSERT IGNORE INTO portfolio_stocks (watchlist_stocks.watchlist_id, watchlist_stocks.stock_id) VALUES (?,?)";
+        $sql = "INSERT IGNORE INTO watchlist_stocks (watchlist_stocks.watchlist_id, watchlist_stocks.stock_id) VALUES (?,?)";
         $statement = $this->pdo->prepare($sql);
         $statement->bindValue(1, $watchListId, PDO::PARAM_INT);
         $statement->bindValue(2, $stockId, PDO::PARAM_INT);
@@ -116,7 +117,7 @@ class DBManager
     {
         $sql = "SELECT stocks.id, stocks.stock_name FROM stocks
             LEFT JOIN watchlist_stocks ON watchlist_stocks.stock_id = stocks.id 
-            LEFT JOIN watchlists ON watchlists.id = watchlists_stocks.watchlist_id 
+            LEFT JOIN watchlists ON watchlists.id = watchlist_stocks.watchlist_id 
             LEFT JOIN users ON users.id = watchlists.user_id
             WHERE users.id = ?";
 

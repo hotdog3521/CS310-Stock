@@ -98,11 +98,11 @@ class PortfolioManager
     public function addWatchListStock($stock) {
         //calls the addWatchListStock function in $mPortfolio
 
-        $this->mPortfolio->addToWatchList($stock);
+        // $this->mPortfolio->addToWatchList($stock);
 
         // update the database as well
 
-        $this->mDB->addWatchListStock($stock->getSymbol(), $this->watchListId);
+        $this->mDB->addWatchListStock($stock, $this->watchListId);
     }
     public function removeFromWatchList($stock) {
         //calls the removeFromWatchList function in $mPortfolio
