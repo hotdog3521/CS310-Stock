@@ -16,12 +16,15 @@
 	$success = $db->loginAuthenticate($_POST['email'], $_POST['password']);
 
 	//the user entered incorrect login info
-	if (!$success)
+	if (is_null($success))
 	{
 		$_SESSION['errors'] = "Email or Password was incorrect.  Please try again.";
 		header('Location: login.php');
 		exit();
 	}
+
+	$_SESSION['email'] = $_POST['email'];
+	$_SESSION['userId'] = $success;
 
 	//enter the user's dashboard
 	header('Location: dashboard.php');

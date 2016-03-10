@@ -1,12 +1,32 @@
 <?php
-
+ini_set('display_errors', 'on');
 $filepath = realpath (dirname(__FILE__));
 
 include($filepath.'/YahooFinanceApi/ApiClient.php');
 
-$client = new \YahooFinanceApi\ApiClient();
+$client = new YahooFinanceApi\ApiClient();
+
+include($filepath.'/php_classes/APIManager.php');
+include($filepath.'/DBManager.php');
+
+$mAPI = new APIManager();
+$mDB = new DBManager();
+
+/*
+$myArray = $mAPI->getStockInfo('GOOGL');
+print $myArray['price'];
+*/
+
+//if($mAPI->isStock('GOOGLE')) print 1;
+//else print 0;
+
+$array = $mDB->searchStocks('G');
+
+print_r(array_values($array));
+
 
 //Fetch basic data
+/*
 $data = $client->getQuotesList("YHOO"); //Single stock
 $file = "YHOO.json";
 $json = json_encode($data);
@@ -16,8 +36,27 @@ print "Price: " . (string)($jsonS->query->results->quote->LastTradePriceOnly) . 
 print "Date: " . (string)($jsonS->query->results->quote->LastTradeDate) . "<br>";
 print "Time: " . (string)($jsonS->query->results->quote->LastTradeTime) . "<br>";
 
+$date1 = new DateTime('2014-05-14');
+$date2 = new DateTime('2014-05-16');
 
-//efile_put_contents($file, json_encode($data));
+$data = $client->getHistoricalData("YHOO", $date1, $date2);
+
+
+file_put_contents($file, json_encode($data));
+
+*/
+
+/*
+
+$json = json_encode($data);
+$jsonS = json_decode($json);
+print "Symbol: " . (string)($jsonS->query->results->quote->symbol) . "<br>";
+print "Price: " . (string)($jsonS->query->results->quote->LastTradePriceOnly) . "<br>";
+print "Date: " . (string)($jsonS->query->results->quote->LastTradeDate) . "<br>";
+print "Time: " . (string)($jsonS->query->results->quote->LastTradeTime) . "<br>";
+*/
+
+//file_put_contents($file, json_encode($data));
 
 /*
 
@@ -62,7 +101,15 @@ JSON output
 }
 
 
+$filepath = realpath (dirname(__FILE__));
 
+include($filepath.'/API/client.php');
+
+$client = new client();
+
+$data = $client->getStock('YHOO');
+$json = json_encode($data);
+print $json;
 
 
 

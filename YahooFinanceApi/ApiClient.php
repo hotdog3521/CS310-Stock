@@ -1,7 +1,7 @@
 <?php
 namespace YahooFinanceApi;
 
-include 'HttpClient.php';
+require_once('HttpClient.php');
 
 use Exception\HttpException;
 use Exception\ApiException;
@@ -51,7 +51,7 @@ class ApiClient
         $decoded = json_decode($response, true);
         if (!isset($decoded['ResultSet']['Result']))
         {
-            throw new ApiException("Yahoo Search API returned an invalid result.", ApiException::INVALID_RESULT);
+            // throw new ApiException("Yahoo Search API returned an invalid result.", Exception\ApiException::INVALID_RESULT);
         }
         return $decoded;
     }
