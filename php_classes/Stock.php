@@ -10,7 +10,7 @@ class Stock
 
     // constructor for building a new stock
     public function __construct($name, $symbol, $closingPrice,$quantity, $id) {
-
+	if($closingPrice<0) {$closingPrice=0;}
         $this->name = $name;
         $this->symbol = $symbol;
         $this->closingPrice = round(abs($closingPrice),2);
@@ -21,7 +21,8 @@ class Stock
 
     // set the closing price for a stock
     public function setClosingPrice($price) {
-
+	if($price<0) 
+	{$price=0;}
         $this->closingPrice = round(abs($price),2);
     }
 
