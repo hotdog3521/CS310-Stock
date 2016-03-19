@@ -11,7 +11,7 @@ class Portfolio
     // constructor to make a new portfolio
     public function __construct($mWatchList, $accountBalance, $netPortfolioValue, $mStockList) {
         $this->accountBalance = $accountBalance;
-        $this->mWatchList = $watchList;
+        $this->mWatchList = $mWatchList;
         $this->netPortfolioValue = $netPortfolioValue;
         $this->mStockList = $mStockList;
 
