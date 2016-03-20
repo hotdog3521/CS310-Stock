@@ -73,7 +73,7 @@ class DBManager
     public function addStock($stockTicker, $portfolioId, $userId) {
 
 
-        $sql = "INSERT IGNORE INTO stocks (stocks.stock_name, stocks.price) VALUES (?)";
+        $sql = "INSERT IGNORE INTO stocks (stocks.stock_name, stocks.price) VALUES (?, ?)";
         $statement = $this->pdo->prepare($sql);
         $statement->bindValue(1, $stockTicker, PDO::PARAM_STR);
         $statement->bindValue(2, 100, PDO::PARAM_INT);
@@ -197,7 +197,7 @@ class DBManager
     }
 
     // removes a stock from the database so that it will not be in the user’s watchlist during future
-    public function removeFromWatchList($watchlist_id, $stock) {
+    public function removeFromWatchList($watchlist_id, $stockID) {
 
 
         $sql = "DELETE FROM watchlist_stocks
@@ -205,13 +205,13 @@ class DBManager
                 AND watchlist_stocks.stock_id = ?";
         $statement = $this->pdo->prepare($sql);
         $statement->bindValue(1, $watchlist_id, PDO::PARAM_INT);
-        $statement->bindValue(2, $stock->getID(), PDO::PARAM_INT);
+        $statement->bindValue(2, $stockID, PDO::PARAM_INT);
         $statement->execute();
 
     }
 
     // removes a stock from the database so that it will not be in the user’s portfolio during future
-    public function removeFromPortfolioList ($portfolio_id, $stock){
+    public function removeFromPortfolioList ($portfolio_id, $stockID){
         // removes a stock from a portfolio list
 
         $sql = "DELETE FROM portfoio_stocks
@@ -219,7 +219,7 @@ class DBManager
                 AND portfolio_stocks.stock_id = ?";
         $statement = $this ->pdo->prepare($sql);
         $statement->bindValue(1, $portfolio_id, PDO::PARAM_INT);
-        $statement->bindValue(2, $stock->getID(), PDO::PARAM_INT);
+        $statement->bindValue(2, $stockID, PDO::PARAM_INT);
         $statement->execute();
     }
 
