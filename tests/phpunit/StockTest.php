@@ -3,6 +3,7 @@
 	require_once 'php_classes/Stock.php';
 	class StockTest extends PHPUnit_Framework_TestCase {
 		public function testTrial(){
+			
 			$a = new Stock("trial name","TST",11,10,9);
 			$this->assertEquals("trial name",$a->getName());
 		}

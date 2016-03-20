@@ -15,15 +15,21 @@ class Trader
 
     // method declaration
     public function isStock($companyName) {
-        return $this->$mAPI->isStock($companyName);
+        return $this->mAPI->isStock($companyName);
         //verifies if the specified stock name is valid or not.
     }
     public function canBuy($stock,$quantity) {
         //verifies if the user has sufficient funds to buy the stock at the given quantity.
+            if($this->portfolioManager->getBallance()>= 100*$quantity){
+                return true;
+            }else {
+                return false;
+            }
     }
     public function buyStock($stock, $quantity) {
         //accesses the API and purchases the stocks And update user’s portfolio.
     	if(isStock($stock)==false){
+
     		//error popup function
     		return;
     	}
@@ -31,6 +37,12 @@ class Trader
     		//error popup function
     		return;
     	}
+
+        // $ballance=$this->portfolioManager->getBallance();
+        // $ballance= $ballance-(100*quantity);
+        // $this->portfolioManager->setBallance($ballance);
+        // $this->portfolioManager->addStock($Stock);
+        
     	//Confirmation Popup
     	//if yes
  		// up date net portfolio value and ballance
