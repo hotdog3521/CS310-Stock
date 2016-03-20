@@ -14,7 +14,7 @@
 		public function testCorrectIsStock(){
 				//ARRANGE
 			$a= new APIManager();
-			$b= new PortfolioManager(0);
+			$b= new PortfolioManager(14);
 			$c= new Trader($a, $b);
 			for($x=0; $x<count($this->validStockList); $x++){			
 				//ACT
@@ -27,7 +27,7 @@
 		public function testIncorrectIsStock(){
 			//Arrange
 			$a= new APIManager();
-			$b= new PortfolioManager(0);
+			$b= new PortfolioManager(14);
 			$c= new Trader($a, $b);
 			for($x=0; $x<count($this->invalidStockList); $x++){				
 				//ACT
@@ -42,8 +42,8 @@
 		public function testCorrectCanBuyWithSurplusMoney(){
 			//ARRANGE
 			$a= new APIManager();
-			$b= new PortfolioManager(0);
-			$b->setBallance(2000);
+			$b= new PortfolioManager(14);
+			$b->setBalance(2000);
 			$c= new Trader($a, $b);
 			$stock = new Stock("Google","GOOGL",100,10,9);
 			//ACT 
@@ -58,8 +58,8 @@
 		public function testCorrectCanBuyWithEqualMoney(){
 			//ARRANGE
 			$a= new APIManager();
-			$b= new PortfolioManager(0);
-			$b->setBallance(100);
+			$b= new PortfolioManager(14);
+			$b->setBalance(100);
 			$c= new Trader($a, $b);
 			$stock = new Stock("Google","GOOGL",100,10,9);
 			//ACT 
@@ -71,8 +71,8 @@
 		public function testIncorrectCanBuyWithOneShortMoney(){
 			//ARRANGE
 			$a= new APIManager();
-			$b= new PortfolioManager(0);
-			$b->setBallance(99);
+			$b= new PortfolioManager(14);
+			$b->setBalance(99);
 			$c= new Trader($a, $b);
 			$stock = new Stock("Google","GOOGL",100,10,9);
 			//ACT 
@@ -83,8 +83,8 @@
 		public function testIncorrectCanBuyWithOneALotShortMoney(){
 			//ARRANGE
 			$a= new APIManager();
-			$b= new PortfolioManager(0);
-			$b->setBallance(9);
+			$b= new PortfolioManager(14);
+			$b->setBalance(9);
 			$c= new Trader($a, $b);
 			$stock = new Stock("Google","GOOGL",100,10,9);
 			//ACT 
