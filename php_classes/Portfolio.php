@@ -50,7 +50,7 @@ class Portfolio
     }
 
     //returns the populated Portfolio List array
-    public function getStockList($user) {
+    public function getStockList() {
 
         return $this->mStockList;
     }
@@ -72,7 +72,7 @@ class Portfolio
     }
 
     // returns the populated WatchList array
-    public function  getWatchList($user) {
+    public function  getWatchList() {
 
         return $this->mWatchList;
     }
