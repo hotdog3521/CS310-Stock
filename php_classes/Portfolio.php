@@ -58,16 +58,16 @@ class Portfolio
     // adds a stock to the Portofolio List array
     public function addStock($stock) {
 
-        if (in_array($stock->getName(), $mStockList)){
-            array_push($mStockList, $stock->getName(), $stock);
+        if (!array_key_exists($stock->getName(), $this->mStockList)){
+            $this->mStockList[$stock->getName()] = $stock;
         }
     }
 
     // removes a stock from the Portfolio List array
     public function removeStock($stock) {
         
-        if (in_array($stock->getName(), $mStockList)){
-            unset($mStockList[$stock->getName()]);
+        if (array_key_exists($stock->getName(), $this->mStockList)){
+            unset($this->mStockList[$stock->getName()]);
         }
     }
 
@@ -80,16 +80,16 @@ class Portfolio
     // adds a stock to the Watchlist array
     public function addToWatchList($stock) {
 
-        if (in_array($stock->getName(), $mWatchList)){
-            array_push($mWatchListList, $stock->getName(), $stock);
+        if (!array_key_exists($stock->getName(), $this->mWatchList)){
+            $this->mWatchList[$stock->getName()] = $stock;
         }
     }
 
     // removes a stock from the Watchlist array
     public function removeFromWatchList($stock) {
 
-        if (in_array($stock->getName(), $mWatchList)){
-            unset($mWatchList[$stock->getName()]);
+        if (array_key_exists($stock->getName(), $this->mWatchList)){
+            unset($this->mWatchList[$stock->getName()]);
         }
     }
 

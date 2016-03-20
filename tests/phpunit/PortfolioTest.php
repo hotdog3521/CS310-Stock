@@ -1,6 +1,7 @@
 <?php
 
 	require_once 'php_classes/Portfolio.php';
+	require_once 'php_classes/Stock.php';
 
 	class PortfolioTest extends PHPUnit_Framework_TestCase {
 
@@ -113,9 +114,62 @@
 			$p = new Portfolio($list, 0, 0, NULL);
 			// Act
 			$list2 = $p->getWatchList();
-			//Assert
+			// Assert
 			$this->assertEquals(1, sizeof($list2));
 			$this->assertEquals("bar", $list2["foo"]);
+		}
+
+		public function testAddNewToWatchList(){
+			// Arrange
+			$list = array();
+			$p = new Portfolio($list, 0, 0, NULL);
+			$stock = new Stock("Apple", "AAPL", 0, 0, 0);
+			// Act
+			$p->addToWatchList($stock);
+			$list2 = $p->getWatchList();
+			// Assert
+			$this->assertEquals(1, sizeof($list2));
+			$this->assertEquals("Apple", $list2["Apple"]->getName());
+		}
+
+		public function testAddDuplicateToWatchList(){
+			// Arrange
+			$stock = new Stock("Apple", "AAPL", 0, 0, 0);
+			$list = array(
+				"Apple" => $stock);
+			$p = new Portfolio($list, 0, 0, NULL);
+			// Act
+			$p->addToWatchList($stock);
+			$list2 = $p->getWatchList();
+			// Assert
+			$this->assertEquals(1, sizeof($list2));
+		}
+
+		public function testRemoveExistentFromWatchList(){
+			// Arrange
+			$stock = new Stock("Apple", "AAPL", 0, 0, 0);
+			$list = array(
+				"Apple" => $stock);
+			$p = new Portfolio($list, 0, 0, NULL);
+			// Act
+			$p->removeFromWatchList($stock);
+			$list2 = $p->getWatchList();
+			// Assert
+			$this->assertEquals(0, sizeof($list2));
+		}
+
+		public function testRemoveNonexistentFromWatchList(){
+			// Arrange
+			$stock = new Stock("Apple", "AAPL", 0, 0, 0);
+			$stock2 = new Stock("Microsoft", "MSFT", 0 ,0 ,0);
+			$list = array(
+				"Apple" => $stock);
+			$p = new Portfolio($list, 0, 0, NULL);
+			// Act
+			$p->removeFromWatchList($stock2);
+			$list2 = $p->getWatchList();
+			// Assert
+			$this->assertEquals(1, sizeof($list2));
 		}
 
 		// testing functions using $mStockList
@@ -139,6 +193,59 @@
 			// Assert
 			$this->assertEquals(1, sizeof($list2));
 			$this->assertEquals("bar", $list2["foo"]);
+		}
+
+		public function testAddNewToStockList(){
+			// Arrange
+			$list = array();
+			$p = new Portfolio(NULL, 0, 0, $list);
+			$stock = new Stock("Apple", "AAPL", 0, 0, 0);
+			// Act
+			$p->addStock($stock);
+			$list2 = $p->getStockList();
+			// Assert
+			$this->assertEquals(1, sizeof($list2));
+			$this->assertEquals("Apple", $list2["Apple"]->getName());
+		}
+
+		public function testAddDuplicateToStockList(){
+			// Arrange
+			$stock = new Stock("Apple", "AAPL", 0, 0, 0);
+			$list = array(
+				"Apple" => $stock);
+			$p = new Portfolio(NULL, 0, 0, $list);
+			// Act
+			$p->addStock($stock);
+			$list2 = $p->getStockList();
+			// Assert
+			$this->assertEquals(1, sizeof($list2));
+		}
+
+		public function testRemoveExistentFromStockList(){
+			// Arrange
+			$stock = new Stock("Apple", "AAPL", 0, 0, 0);
+			$list = array(
+				"Apple" => $stock);
+			$p = new Portfolio(NULL, 0, 0, $list);
+			// Act
+			$p->removeStock($stock);
+			$list2 = $p->getStockList();
+			// Assert
+			$this->assertEquals(0, sizeof($list2));
+		}
+
+		public function testRemoveNonexistentFromStockList(){
+			// Arrange
+			$stock = new Stock("Apple", "AAPL", 0, 0, 0);
+			$stock2 = new Stock("Microsoft", "MSFT", 0 ,0 ,0);
+			$list = array(
+				"Apple" => $stock);
+			$p = new Portfolio(NULL, 0, 0, $list);
+			// Act
+			$p->removeStock($stock2);
+			$list2 = $p->getStockList();
+			// Assert
+			$this->assertEquals(1, sizeof($list2));
 		}
 	}
 
