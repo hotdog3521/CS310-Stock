@@ -1,5 +1,5 @@
 <?php
-require_once("php_classes/DBManager.php");
+//require_once("php_classes/DBManager.php");
 
 class DBManagerTest extends PHPUnit_Framework_TestCase 
 {
