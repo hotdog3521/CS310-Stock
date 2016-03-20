@@ -50,6 +50,11 @@ class PortfolioManager
         return $this->mPortfolio->getNetPortfolioValue();
     }
 
+    // set the net portfolio value of the portfolio
+    public function setNetPortfolioValue($newValue){
+        $this->mPortfolio->setNetPortfolioValue($newValue);
+    }
+
     // return the Portfolio List
     public function getStockList() {
 
