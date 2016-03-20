@@ -159,6 +159,9 @@ class PortfolioManager
 
         $this->mPortfolio = new Portfolio($watchlistStocks, $balance, 0, $portfolioStocks);
     }
+    public function loadNewPortfolio($portfolio, $balance, $netvalue, $watchlist){
+        $this->mPortfolio = new Portfolio($portfolio, $balance, $netvalue, $watchlist);
+    }
 
 
 }

@@ -20,7 +20,11 @@ class Portfolio
     //returns true if Portfolio’s balance has been set successfully, and false otherwise.
     public function setBalance($balance) {
 
-        $this->accountBalance = $balance;
+        if ($balance < 0){
+            $this->accountBalance = 0;
+        } else {
+            $this->accountBalance = $balance;
+        }
     }
 
     // returns the portfolio net balance
@@ -30,7 +34,7 @@ class Portfolio
     }
 
     // returns the portfolio net value
-    public function getnetPortfolioValue() {
+    public function getNetPortfolioValue() {
 
         return $this->netPortfolioValue;
     }
@@ -38,7 +42,11 @@ class Portfolio
     // sets the portfolio net value
     public function setNetPortfolioValue($newValue) {
 
-        $this->netPortfolioValue = $newValue;
+        if ($newValue < 0){
+            $this->netPortfolioValue = 0;
+        } else {
+            $this->netPortfolioValue = $newValue;
+        }
     }
 
     //returns the populated Portfolio List array

@@ -49,14 +49,14 @@
 		}
 		public function testNegativePrices(){
 			$a = new Stock("Johnny","TST",-10,12,12);
-			$this->assertEquals(0.0,$a->getClosingPrice());
+			$this->assertEquals(10.0,$a->getClosingPrice());
 
 		}
 		public function testChangeToNegativePrice(){
 			$a = new Stock("Johnny","TST",10,12,12);
 			$this->assertEquals(10.0,$a->getClosingPrice());
 			$a->setClosingPrice(-10);
-			$this->assertEquals(0.0,$a->getClosingPrice());
+			$this->assertEquals(10.0,$a->getClosingPrice());
 		}
 		public function testFactionClosingPrices(){
 			$a = new Stock("Johnny", "TST", 10.55,12,12);
@@ -64,7 +64,7 @@
 		}	
 		public function testNegativeFractionClosingPrice(){
 			$a = new Stock("Johnny","TST",-12.55,12,12);
-			$this->assertEquals(0.0,$a->getClosingPrice());
+			$this->assertEquals(12.55,$a->getClosingPrice());
 		}
 		public function testRoundOfClosingPrice(){
 			$a = new Stock("Johnny","TST",12.9899,10,10);
@@ -72,7 +72,7 @@
 		}
 		public function testNegativeRoundOfClosingPrice(){
 			$a = new Stock("Johnny","TST",-12.9899,10,10);
-			$this->assertEquals(0.0,$a->getClosingPrice());
+			$this->assertEquals(12.99,$a->getClosingPrice());
 		}
 	}
 
