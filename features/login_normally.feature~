@@ -5,4 +5,4 @@ Feature: Login with normal existing identification
 		And I fill in email with user1@gmail.com
 		And I fill in password with password
 		When I press login
-		Then I should see http://localhost/CS310-Stock/dashboard.php
+		Then I should see page http://localhost/CS310-Stock/dashboard.php

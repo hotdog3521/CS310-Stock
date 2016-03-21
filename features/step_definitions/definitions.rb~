@@ -45,7 +45,7 @@ Then /^I should see the (.*?) stock in the (.*?) widget$/ do |stock, widget|
 	page.find(widget).should have_text(stock)
 end
 
-Then /^my account balance decreases$/ do
+Then /^my account decreases$/ do
 	find('div#accountBalanceDiv').txt[1..9].to_i.should_not equal(1000)
 end
 

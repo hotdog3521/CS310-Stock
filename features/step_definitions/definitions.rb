@@ -10,7 +10,7 @@ Given /^I am logged in$/ do
 	visit '/login.php'
 	fill_in('email', :with => "test")
 	fill_in('password', :with => "password")
-	click_button('login')
+	click_button('loginbutton')
 end
 
 Given /^I searched the (.*?) stock$/ do |stock|

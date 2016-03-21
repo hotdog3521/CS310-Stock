@@ -5,4 +5,4 @@ Feature: Login with wrong identification
 		And I fill in email with user1@gmail.com
 		And I fill in password with pw
 		When I press login
-		Then I should see http://localhost/CS310-Stock/login.php
+		Then I should see page http://localhost/CS310-Stock/login.php

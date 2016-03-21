@@ -20,7 +20,7 @@ class Trader
     }
     public function canBuy($stock,$quantity) {
         //verifies if the user has sufficient funds to buy the stock at the given quantity.
-            if($this->portfolioManager->getBallance()>= 100*$quantity){
+            if($this->portfolioManager->getBalance()>= 100*$quantity){
                 return true;
             }else {
                 return false;

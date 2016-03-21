@@ -21,7 +21,9 @@
 				<label class="control-label" for="password">Password: </label>
 				<input class="form-control" id="password" type="password" name="password">
 			</div>
-			<button class="btn btn-success" id="login" type="submit">Login</button>
+
+			<button class="btn btn-success" id = "loginbutton" type="submit">Login</button>
+
 		</form>
 		<br>
 		<a href="forgot_password.php" id="forgot">Fogrot your password? Click here</a>

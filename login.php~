@@ -21,10 +21,14 @@
 				<label class="control-label" for="password">Password: </label>
 				<input class="form-control" id="password" type="password" name="password">
 			</div>
+<<<<<<< HEAD
 			<button class="btn btn-success" id="login" type="submit">Login</button>
+=======
+			<button class="btn btn-success" id = "loginbutton" type="submit">Login</button>
+>>>>>>> de33b58ee14ed0f7617087db8ff7eb22f44df384
 		</form>
 		<br>
-		<a href="forgot_password.php">Fogrot your password? Click here</a>
+		<a href="forgot_password.php" id="forgot">Fogrot your password? Click here</a>
 	</div>
 </div>
 
