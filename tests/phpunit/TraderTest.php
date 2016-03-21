@@ -47,7 +47,7 @@
 			$c= new Trader($a, $b);
 			$stock = new Stock("Google","GOOGL",100,10,9);
 			//ACT 
-			$result->canBuy($stock,1);
+			$result = $c->canBuy($stock,1);
 			//RESULT
 			$this->assertEquals(True,$result);
 
@@ -63,7 +63,7 @@
 			$c= new Trader($a, $b);
 			$stock = new Stock("Google","GOOGL",100,10,9);
 			//ACT 
-			$result->canBuy($stock,1);
+			$result = $c->canBuy($stock,1);
 			//RESULT
 			$this->assertEquals(True,$result);
 
@@ -76,7 +76,7 @@
 			$c= new Trader($a, $b);
 			$stock = new Stock("Google","GOOGL",100,10,9);
 			//ACT 
-			$result->canBuy($stock,1);
+			$result = $c->canBuy($stock,1);
 			//RESULT
 			$this->assertEquals(false,$result);
 		}
@@ -88,7 +88,7 @@
 			$c= new Trader($a, $b);
 			$stock = new Stock("Google","GOOGL",100,10,9);
 			//ACT 
-			$result->canBuy($stock, 10);
+			$result = $c->canBuy($stock, 10);
 			//RESULT
 			$this->assertEquals(false,$result);
 		}

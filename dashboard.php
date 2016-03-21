@@ -149,7 +149,7 @@ date_default_timezone_set('US/Eastern');
 								<tbody>
 									<?php foreach ($watchlistStocks as $stock) : ?>
 										<tr>
-											<td><?php echo $stock->stock_name ?></td>
+											<td class="watchlistStock"><?php echo $stock->stock_name ?></td>
 										</tr>
 									<?php endforeach ?>
 								</tbody>

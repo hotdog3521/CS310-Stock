@@ -23,6 +23,7 @@ class PortfolioManager
         $this->userId = $id;
         $this->portfolioId = $this->mDB->getPortfolioId($id);
         $this->watchListId = $this->mDB->getWatchListId($id);
+        $this->loadPortfolio();
 
     }
 
@@ -41,7 +42,7 @@ class PortfolioManager
     // return the balance of the portfolio
     public function getBalance() {
 
-        return $this->mDB->getAccountBalance($this->userId);
+        return $this->mPortfolio->getBalance();
     }
 
     //returns portfolio’s net value
@@ -157,10 +158,10 @@ class PortfolioManager
     // function to load the portfolio from the database to a new Portfolio object
     public function loadPortfolio(){
 
-        $portfolioStocks = $this->mDB->getPortfolio($userId);
-        $watchlistStocks = $this->mDB->getWatchList($userId);
+        $portfolioStocks = $this->mDB->getPortfolio($this->userId);
+        $watchlistStocks = $this->mDB->getWatchList($this->userId);
 
-        $balance = $this->mDB->getBalance($userId);
+        $balance = $this->mDB->getAccountBalance($this->userId);
 
         $this->mPortfolio = new Portfolio($watchlistStocks, $balance, 0, $portfolioStocks);
     }
