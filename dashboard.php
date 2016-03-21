@@ -86,7 +86,11 @@ date_default_timezone_set('US/Eastern');
 				</div>
 			</div>
 			<div class="col-md-4" style="display: inline-block;">
-				<h4>Account Balance: $<?php echo $accountBalance ?></h4>
+				<h4>Account Balance: 
+				<div id = "accountBalanceDiv">
+				$<?php echo $accountBalance ?>
+				</div>
+				</h4>
 			</div>
 		</div>
 		<br>		
