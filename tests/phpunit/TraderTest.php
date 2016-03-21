@@ -10,7 +10,7 @@
 		public $validStockList=array("INTC","NVDA","CVS","GOOGL","AAPL","MMM","IBM","MSFT","NKE", "AMZN", "YHOO", "KO" ,"HPQ");
 		public $invalidStockList=array("AAA","ABBBB","NZK","DFDF","KKK","DNUT", "DORETS", "BNGD","KBSCF","DZRS");
 	
-		//Test the isStock function
+		//Test the isStock function on a valid stock
 		public function testCorrectIsStock(){
 				//ARRANGE
 			$a= new APIManager();
@@ -23,7 +23,7 @@
 				$this->assertEquals(True,$d);
 			}
 		}
-
+		//Tests isStock function on an invalid stock
 		public function testIncorrectIsStock(){
 			//Arrange
 			$a= new APIManager();
@@ -38,7 +38,7 @@
 
 		}
 
-		//Test the canBuy function
+		//Test the canBuy function where cost < ballance
 		public function testCorrectCanBuyWithSurplusMoney(){
 			//ARRANGE
 			$a= new APIManager();
@@ -54,7 +54,7 @@
 		}
 
 
-		//Test the canBuy function
+		//Test the canBuy function where cost = ballance
 		public function testCorrectCanBuyWithEqualMoney(){
 			//ARRANGE
 			$a= new APIManager();
@@ -68,6 +68,8 @@
 			$this->assertEquals(True,$result);
 
 		}
+
+		//Test the canBuy function where ccost =ballange+1 (therefore not within budget)
 		public function testIncorrectCanBuyWithOneShortMoney(){
 			//ARRANGE
 			$a= new APIManager();
@@ -80,6 +82,7 @@
 			//RESULT
 			$this->assertEquals(false,$result);
 		}
+		//Test the canbuy function where cost > ballances
 		public function testIncorrectCanBuyWithOneALotShortMoney(){
 			//ARRANGE
 			$a= new APIManager();
