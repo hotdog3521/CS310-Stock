@@ -1,0 +1,22 @@
+Feature: Stock Ticker
+	Should check functionality of stock ticker
+	Scenario: Add stock to portfolio
+		Given I am logged in
+		And I searched the GOOG stock
+		When I press addportfolio
+		Then I should see http://localhost/CS310-Stock/dashboard.php
+		And I should see the GOOG stock in the #portfoliolist widget
+
+	Scenario: Add stock to watchlist
+		Given I am logged in
+		And I searched the GOOG stock
+		When I press addwatchlist
+		Then I should see http://localhost/CS310-Stock/dashboard.php
+		And I should see the GOOG stock in the #watchlist widget
+
+	Scenario: Account decrease
+		Given I am logged in
+		And GOOG costs 100 dollars
+		And I am on /stock_info.php
+		When I press buy stock
+		Then my account decreases

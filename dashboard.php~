@@ -140,7 +140,7 @@ date_default_timezone_set('US/Eastern');
 				  </div>
 
 				  <div class="tab-pane">
-				  	<div class="table-responsive table-bordered" id="watchlist">
+				  	<div class="table-responsive table-bordered" id="wl">
 							<table id="wList_Table" class="table" style="font-size: 10px">
 								<thead>
 									<th>Ticker Symbol</th>

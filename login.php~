@@ -24,7 +24,7 @@
 			<button class="btn btn-success" id="login" type="submit">Login</button>
 		</form>
 		<br>
-		<a href="forgot_password.php" id="forgot">Fogrot your password? Click here</a>
+		<a href="forgot_password.php">Fogrot your password? Click here</a>
 	</div>
 </div>
 

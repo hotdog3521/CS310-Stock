@@ -1,0 +1,7 @@
+Feature: Use Forgot Password
+	Scenario: Forgot Password
+		Given I am on /login.php
+		And I fill in email with user1@gmail.com
+		And I fill in password with pw
+		When I click forgot
+		Then I should see page http://localhost/CS310-Stock/forgot_password.php
