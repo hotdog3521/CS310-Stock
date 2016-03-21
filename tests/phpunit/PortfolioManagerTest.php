@@ -6,6 +6,7 @@
 
 		// testing functions using $balance
 
+		// Tests getBalance() function for balance = 0
 		public function testGetZeroBalance(){
 			// Arrange
 			$pm = new PortfolioManager(14);
@@ -15,6 +16,7 @@
 			$this->assertEquals(0, $pm->getBalance());
 		}
 
+		// Tests getBalance() function for balance > 0
 		public function testGetPositiveBalance(){
 			// Arrange
 			$pm = new PortfolioManager(14);
@@ -24,6 +26,8 @@
 			$this->assertEquals(3, $pm->getBalance());
 		}
 
+		// Tests setBalance() function for balance < 0
+		// Expected to set balance to 0
 		public function testSetNegativeBalance(){
 			// Arrange
 			$pm = new PortfolioManager(14);
@@ -34,6 +38,7 @@
 			$this->assertEquals(0, $pm->getBalance());
 		}
 
+		// Tests setBalance() function for balance = 0
 		public function testSetZeroBalance(){
 			// Arrange
 			$pm = new PortfolioManager(14);
@@ -44,6 +49,7 @@
 			$this->assertEquals(0, $pm->getBalance());
 		}
 
+		// Tests setBalance() function for balance set to >0
 		public function testSetPositiveBalance(){
 			// Arrange
 			$pm = new PortfolioManager(14);
@@ -56,6 +62,7 @@
 
 		// testing functions using $netPortfolioValue
 
+		// Tests getNetPortfolioValue for value = 0
 		public function testGetZeroNetPortfolioValue(){
 			// Arrange
 			$pm = new PortfolioManager(14);
@@ -65,6 +72,7 @@
 			$this->assertEquals(0, $pm->getNetPortfolioValue());
 		}
 
+		// Tests getNetPortfolioValue for value > 0
 		public function testGetPositiveNetPortfolioValue(){
 			// Arrange
 			$pm = new PortfolioManager(14);
@@ -74,6 +82,8 @@
 			$this->assertEquals(5, $pm->getNetPortfolioValue());
 		}
 
+		// Tests setNetPortfolioValue for new value < 0
+		// Expected to set the value to 0
 		public function testSetNegativeNetPortfolioValue(){
 			// Arrange
 			$pm = new PortfolioManager(14);
@@ -84,6 +94,7 @@
 			$this->assertEquals(0, $pm->getNetPortfolioValue());
 		}
 
+		// Tests setNetPortfolioValue for new value = 0
 		public function testSetZeroNetPortfolioValue(){
 			// Arrange
 			$pm = new PortfolioManager(14);
@@ -94,6 +105,7 @@
 			$this->assertEquals(0, $pm->getNetPortfolioValue());
 		}
 
+		// Tests setNetPortfolioValue for value > 0
 		public function testSetPositiveNetPortfolioValue(){
 			// Arrange
 			$pm = new PortfolioManager(14);
