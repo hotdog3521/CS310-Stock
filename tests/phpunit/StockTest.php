@@ -2,78 +2,119 @@
 	//namespace phpunit; 
 	require_once 'php_classes/Stock.php';
 	class StockTest extends PHPUnit_Framework_TestCase {
-		public function testTrial(){
-			
-			$a = new Stock("trial name","TST",11,10,9);
-			$this->assertEquals("trial name",$a->getName());
-		}
-		//Tests the name
+		
+		//Tests the getName function
 		public function testName(){
+			//ARRANGE
 			$a = new Stock("Johnny","TST",11,10,9);
-			$this->assertEquals("Johnny",$a->getName());
+			//ACT
+			$b=$a->getName();
+			//RESULT
+			$this->assertEquals("Johnny",$b);
 		}
-		//Tests concatenated name
+		//Tests concatenated name passed into the constructor
 		public function testNameConcatination(){
+			//ARRANGE
 			$a = new Stock("Johnny"." Wood " ."1","TST",11,10,9);
-			$this->assertEquals("Johnny Wood 1",$a->getName());
+			//ACT
+			$b=$a->getName();
+			//RESULT
+			$this->assertEquals("Johnny Wood 1",$b);
 		}
+
+
+		//Tests the setName function
 		public function testChangName()
 		{
+			//ARRANGE
 			$a = new Stock("Johnny Wood","TST",11,10,9);
-			$this->assertEquals("Johnny Wood",$a->getName());
+			//ACT
 			$a->setName("New Johnny");
+			//RESULT
 			$this->assertEquals("New Johnny",$a->getName());
 		}	
-		//I DONT KNOW IF I CAN DO THIS
-		public function testIfNameTakesNumbers(){
-			$a = new Stock(1,"TST",11,10,9);
-			$this->assertEquals(1,$a->getName());
-		}
-
+		//Tests if constructor accepts characters
 		public function testIfNameTakesCharacters(){
+			//ARRANGE
 			$a = new Stock("qwerty12345!@#$%<>?","TST",12,12,12);
-			$this->assertEquals("qwerty12345!@#$%<>?",$a->getName());
+			//ACT
+			$b=$a->getName();
+			//RESULT
+			$this->assertEquals("qwerty12345!@#$%<>?",$b);
 		}
-
 
 		//NOW TESTING CLOSING PRICE FUNCTIONALITYY
-
+		//Tests getclosingprice()
 		public function testClosingPrice() {
+			//ARRANGE
 			$a = new Stock("Johnny","TST",10,12,12);
-			$this->assertEquals(10.0,$a->getClosingPrice());
+			//ACT
+			$b=$a->getClosingPrice();
+			//RESULT
+			$this->assertEquals(10.0,$b);
 		}
+		//Tests setClosingPrice()
 		public function testChangingClosingPrice(){
+			//ARRANGE
 			$a = new Stock("Johnny","TST",10,12,12);
-			$this->assertEquals(10.0,$a->getClosingPrice());
+			//ACT
 			$a->setClosingPrice(24);
+			//RESULT
 			$this->assertEquals(24.0,$a->getClosingPrice());
 		}
+		//Tests if constructor defaults negative prices to 0
 		public function testNegativePrices(){
+			//ARRANGE
 			$a = new Stock("Johnny","TST",-10,12,12);
-			$this->assertEquals(0.0,$a->getClosingPrice());
-
+			//ACT
+			$b=$a->getClosingPrice();
+			//RESULT
+			$this->assertEquals(0.0,$b);
 		}
+		//Tests if setClosingPrice defaults negative prices to 0
 		public function testChangeToNegativePrice(){
+			//ARRANGE
 			$a = new Stock("Johnny","TST",10,12,12);
-			$this->assertEquals(10.0,$a->getClosingPrice());
+			//ACT
 			$a->setClosingPrice(-10);
+			//RESULT
 			$this->assertEquals(0.0,$a->getClosingPrice());
 		}
+		//Tests if constructor takes in rational numbers 
 		public function testFactionClosingPrices(){
+			//ARRANGE
 			$a = new Stock("Johnny", "TST", 10.55,12,12);
-			$this->assertEquals(10.55,$a->getClosingPrice());
+			//ACT
+			$b=$a->getClosingPrice();
+			//RESULT
+			$this->assertEquals(10.55,$b);
 		}	
+		//Tests if constructor defauls a negative rational number to 0
 		public function testNegativeFractionClosingPrice(){
+			//ARRANGE
 			$a = new Stock("Johnny","TST",-12.55,12,12);
-			$this->assertEquals(0.0,$a->getClosingPrice());
+			//ACT
+			$b= $a->getClosingPrice();
+			//RESULT
+			$this->assertEquals(0.0,$b);
 		}
+		//Tests if rationional numbers are rounded up to two decimal places
 		public function testRoundOfClosingPrice(){
+			//ARRANGE
 			$a = new Stock("Johnny","TST",12.9899,10,10);
-			$this->assertEquals(12.99,$a->getClosingPrice());
+			//ACT
+			$b=$a->getClosingPrice();
+			//RESULT
+			$this->assertEquals(12.99,$b);
 		}
+		//Tests if negative rational numbers with more than 2 decimal places default to 0
 		public function testNegativeRoundOfClosingPrice(){
+			//ARRANGE
 			$a = new Stock("Johnny","TST",-12.9899,10,10);
-			$this->assertEquals(0.0,$a->getClosingPrice());
+			//ACT
+			$b=$a->getClosingPrice();
+			//RESULT
+			$this->assertEquals(0.0,$b);
 		}
 	}
 
