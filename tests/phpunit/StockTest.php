@@ -9,7 +9,7 @@
 			$a = new Stock("Johnny","TST",11,10,9);
 			//ACT
 			$b=$a->getName();
-			//RESULT
+			//ASSERT
 			$this->assertEquals("Johnny",$b);
 		}
 		//Tests concatenated name passed into the constructor
@@ -18,7 +18,7 @@
 			$a = new Stock("Johnny"." Wood " ."1","TST",11,10,9);
 			//ACT
 			$b=$a->getName();
-			//RESULT
+			//ASSERT
 			$this->assertEquals("Johnny Wood 1",$b);
 		}
 
@@ -30,7 +30,7 @@
 			$a = new Stock("Johnny Wood","TST",11,10,9);
 			//ACT
 			$a->setName("New Johnny");
-			//RESULT
+			//ASSERT
 			$this->assertEquals("New Johnny",$a->getName());
 		}	
 		//Tests if constructor accepts characters
@@ -39,7 +39,7 @@
 			$a = new Stock("qwerty12345!@#$%<>?","TST",12,12,12);
 			//ACT
 			$b=$a->getName();
-			//RESULT
+			//ASSERT
 			$this->assertEquals("qwerty12345!@#$%<>?",$b);
 		}
 
@@ -50,7 +50,7 @@
 			$a = new Stock("Johnny","TST",10,12,12);
 			//ACT
 			$b=$a->getClosingPrice();
-			//RESULT
+			//ASSERT
 			$this->assertEquals(10.0,$b);
 		}
 		//Tests setClosingPrice()
@@ -59,7 +59,7 @@
 			$a = new Stock("Johnny","TST",10,12,12);
 			//ACT
 			$a->setClosingPrice(24);
-			//RESULT
+			//ASSERT
 			$this->assertEquals(24.0,$a->getClosingPrice());
 		}
 		//Tests if constructor defaults negative prices to 0
@@ -68,7 +68,7 @@
 			$a = new Stock("Johnny","TST",-10,12,12);
 			//ACT
 			$b=$a->getClosingPrice();
-			//RESULT
+			//ASSERT
 			$this->assertEquals(0.0,$b);
 		}
 		//Tests if setClosingPrice defaults negative prices to 0
@@ -77,7 +77,7 @@
 			$a = new Stock("Johnny","TST",10,12,12);
 			//ACT
 			$a->setClosingPrice(-10);
-			//RESULT
+			//ASSERT
 			$this->assertEquals(0.0,$a->getClosingPrice());
 		}
 		//Tests if constructor takes in rational numbers 
@@ -86,7 +86,7 @@
 			$a = new Stock("Johnny", "TST", 10.55,12,12);
 			//ACT
 			$b=$a->getClosingPrice();
-			//RESULT
+			//ASSERT
 			$this->assertEquals(10.55,$b);
 		}	
 		//Tests if constructor defauls a negative rational number to 0
@@ -95,7 +95,7 @@
 			$a = new Stock("Johnny","TST",-12.55,12,12);
 			//ACT
 			$b= $a->getClosingPrice();
-			//RESULT
+			//ASSERT
 			$this->assertEquals(0.0,$b);
 		}
 		//Tests if rationional numbers are rounded up to two decimal places
@@ -104,7 +104,7 @@
 			$a = new Stock("Johnny","TST",12.9899,10,10);
 			//ACT
 			$b=$a->getClosingPrice();
-			//RESULT
+			//ASSERT
 			$this->assertEquals(12.99,$b);
 		}
 		//Tests if negative rational numbers with more than 2 decimal places default to 0
@@ -113,7 +113,7 @@
 			$a = new Stock("Johnny","TST",-12.9899,10,10);
 			//ACT
 			$b=$a->getClosingPrice();
-			//RESULT
+			//ASSERT
 			$this->assertEquals(0.0,$b);
 		}
 	}

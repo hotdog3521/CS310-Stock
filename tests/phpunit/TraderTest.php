@@ -19,7 +19,7 @@
 			for($x=0; $x<count($this->validStockList); $x++){			
 				//ACT
 				$d=$c->isStock($this->validStockList[$x]);
-				//RESULT
+				//ASSERT
 				$this->assertEquals(True,$d);
 			}
 		}
@@ -32,7 +32,7 @@
 			for($x=0; $x<count($this->invalidStockList); $x++){				
 				//ACT
 				$d=$c->isStock($this->invalidStockList[$x]);
-				//RESULT
+				//ASSERT
 				$this->assertEquals(False,$d);
 			}
 
@@ -48,7 +48,7 @@
 			$stock = new Stock("Google","GOOGL",100,10,9);
 			//ACT 
 			$result = $c->canBuy($stock,1);
-			//RESULT
+			//ASSERT
 			$this->assertEquals(True,$result);
 
 		}
@@ -64,7 +64,7 @@
 			$stock = new Stock("Google","GOOGL",100,10,9);
 			//ACT 
 			$result = $c->canBuy($stock,1);
-			//RESULT
+			//ASSERT
 			$this->assertEquals(True,$result);
 
 		}
@@ -79,7 +79,7 @@
 			$stock = new Stock("Google","GOOGL",100,10,9);
 			//ACT 
 			$result = $c->canBuy($stock,1);
-			//RESULT
+			//ASSERT
 			$this->assertEquals(false,$result);
 		}
 		//Test the canbuy function where cost > ballances
@@ -92,7 +92,7 @@
 			$stock = new Stock("Google","GOOGL",100,10,9);
 			//ACT 
 			$result = $c->canBuy($stock, 10);
-			//RESULT
+			//ASSERT
 			$this->assertEquals(false,$result);
 		}
 

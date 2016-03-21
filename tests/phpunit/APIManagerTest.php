@@ -14,7 +14,7 @@
 			$a = new APIManager();
 			//ACT
 			$b= $a->getStockInfo("GOOGL");
-			//RESULT
+			//ASSERT
 			$this->assertEquals("GOOGL",$b["symbol"]);
 			$this->assertEquals("NASDAQ",$b["market"]);
 			$this->assertEquals(4,count($b));
@@ -27,7 +27,7 @@
 				$name=$this->correctTickerNames[$x];
 				//ACT				
 				$b= $a->getStockInfo($name);
-				//RESULT				
+				//ASSERT				
 				$this->assertEquals($this->correctTickerNames[$x],$b["symbol"]);
 				$this->assertEquals($this->correctMarketNames[$x],$b["market"]);
 				$this->assertEquals($this->correctCountOfResult,count($b));
@@ -40,7 +40,7 @@
 			$a= new APIManager();
 			//ACT			
 			$b=$a->isStock($this->validStockList[0]);
-			//RESULT			
+			//ASSERT			
 			$this->assertEquals(True,$b);
 		}
 		//Tests the isStock function for an invalid stock
@@ -49,7 +49,7 @@
 			$a= new APIManager();
 			//ACT		
 			$b=$a->isStock($this->invalidStockList[0]);
-			//RESULT
+			//ASSERT
 			$this->assertEquals(False,$b);
 		}
 		//Tests the isStock function for multiple valid stocks
@@ -59,7 +59,7 @@
 			for($x=0; $x<count($this->validStockList); $x++){			
 				//ACT
 				$b=$a->isStock($this->validStockList[$x]);
-				//RESULT
+				//ASSERT
 				$this->assertEquals(True,$b);
 			}
 		}
@@ -70,7 +70,7 @@
 			for($x=0; $x<count($this->invalidStockList); $x++){				
 				//ACT
 				$b=$a->isStock($this->invalidStockList[$x]);
-				//RESULT
+				//ASSERT
 				$this->assertEquals(False,$b);
 			}
 
