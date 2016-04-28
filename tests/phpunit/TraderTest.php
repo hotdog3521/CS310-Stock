@@ -76,6 +76,8 @@
 			$b= new PortfolioManager(14);
 			$b->setBalance(99);
 			$c= new Trader($a, $b);
+			$c->buyStock(NULL, 0);
+			$c->sellStock(NULL, 0);
 			$stock = new Stock("Google","GOOGL",100,10,9);
 			//ACT 
 			$result = $c->canBuy($stock,1);

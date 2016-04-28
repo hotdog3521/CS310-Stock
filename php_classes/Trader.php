@@ -27,7 +27,10 @@ class Trader
             }
     }
     public function buyStock($stock, $quantity) {
+
         //accesses the API and purchases the stocks And update user’s portfolio.
+        if ($quantity == 0) return;
+        /*
     	if(isStock($stock)==false){
 
     		//error popup function
@@ -37,7 +40,7 @@ class Trader
     		//error popup function
     		return;
     	}
-
+*/
         // $ballance=$this->portfolioManager->getBallance();
         // $ballance= $ballance-(100*quantity);
         // $this->portfolioManager->setBallance($ballance);
@@ -50,6 +53,8 @@ class Trader
     }
     public function sellStock($stock, $quantity) {
         //accesses the API and sells the stocks. And update user’s portfolio
+        if ($quantity == 0) return;
+        /*
     	$stockList = $this->portfolioManager->getStockList();
     	if($stockList[$stock]->getQuantity() >= $quantity){
 			//update net portfolio value and account ballance
@@ -60,6 +65,7 @@ class Trader
     		//error popup function
     		return;
     	}
+        */
     }
 
 }

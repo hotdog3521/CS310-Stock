@@ -97,6 +97,6 @@
 			// Assert
 			$this->assertEquals(5, $pm->getNetPortfolioValue());
 		}
-	}
+	}	
 
 ?>

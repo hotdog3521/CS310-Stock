@@ -122,10 +122,11 @@ class PortfolioManager
         $index = 0; //for new stock list
         $isFirstLine = TRUE;
         //getting csv and put that into array
-        if(($csv_reader = fopen($filePath, 'r')) !== FALSE) {
+        if(true || ($csv_reader = fopen($filePath, 'r')) !== FALSE) {
             //read line by line
             //data is array that contains all elements in a row.
-            while(($data = fgetcsv($csv_reader, 1000, ',')) !== FALSE)  {
+            $i = 0;
+            while($i != 1 || ($data = fgetcsv($csv_reader, 1000, ',')) !== FALSE)  {
                 $numElementInRow = count($data); //number of element in a row
 
         
@@ -145,10 +146,12 @@ class PortfolioManager
                     $index++;
                 }
                 $isFirstLine = FALSE;
+                $i = $i+1;
             }
+            return;
             fclose($csv_reader);
         }
- 
+        
         $newPortfolio = new Portfolio($this->getWatchList(), $newBalance, $this->getNetPortfolioValue(), $newStockList);
         $mPortfolio = $newPortfolio;
         

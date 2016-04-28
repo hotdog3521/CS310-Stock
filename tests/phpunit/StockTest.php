@@ -116,6 +116,26 @@
 			//ASSERT
 			$this->assertEquals(0.0,$b);
 		}
+		// Tests getting and setting sysmbol
+		public function testChangeSymbol(){
+			//ARRANGE
+			$a = new Stock("Johnny", "TST", -121,19, 19);
+			//ACT
+			$a->setSymbol("JOH");
+
+			//ASSERT
+			$this->assertEquals("JOH",$a->getSymbol());
+		}
+		// Tests getting and setting quantity
+		public function testChangeQuantity(){
+			//ARRANGE
+			$a = new Stock("Johnny", "TST", -121,19, 19);
+			//ACT
+			$a->setQuantity(1000);
+
+			//ASSERT
+			$this->assertEquals(1000,$a->getQuantity());
+		}
 	}
 
 ?>
